@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Toaster } from "@/components/Toast";
 import "./globals.css";
 
 // Self-hosted variable fonts (OFL), so builds never depend on Google Fonts being reachable.
@@ -32,7 +33,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="id">
-      <body className={`${jakarta.variable} ${bricolage.variable} antialiased`}>{children}</body>
+      <body className={`${jakarta.variable} ${bricolage.variable} antialiased`}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
