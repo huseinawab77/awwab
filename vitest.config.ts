@@ -5,6 +5,7 @@ import path from "node:path";
 export default defineConfig({
   plugins: [react()],
   resolve: { alias: { "@": path.resolve(__dirname, "src") } },
+  esbuild: { jsx: "automatic" },
   test: {
     environment: "jsdom",
     include: ["src/**/*.test.{ts,tsx}"],
