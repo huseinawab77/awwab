@@ -18,6 +18,9 @@ describe("validateDraft", () => {
     expect(e.dayTarget).toBe("Isi angka lebih dari 0");
     expect(e.step).toBe("Isi angka lebih dari 0");
   });
+  it("caps the unit at 20 letters, like the database", () => {
+    expect(validateDraft({ ...ok, unit: "x".repeat(21) }).unit).toBe("Satuan maksimal 20 huruf");
+  });
   it("needs a period target for weekly and monthly habits", () => {
     const e = validateDraft({ ...emptyDraft(), name: "Gym", period: "weekly", periodTarget: "" });
     expect(e.periodTarget).toBe("Isi angka lebih dari 0");

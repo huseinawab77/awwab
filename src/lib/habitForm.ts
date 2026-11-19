@@ -53,6 +53,7 @@ export function validateDraft(d: Draft): DraftErrors {
   else if (name.length > 60) e.name = "Nama maksimal 60 huruf";
   if (d.kind === "qty") {
     if (!d.unit.trim()) e.unit = "Satuan wajib diisi";
+    else if (d.unit.trim().length > 20) e.unit = "Satuan maksimal 20 huruf";
     if (!positive(d.dayTarget)) e.dayTarget = "Isi angka lebih dari 0";
     if (!positive(d.step)) e.step = "Isi angka lebih dari 0";
   }

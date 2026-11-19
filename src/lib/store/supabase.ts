@@ -67,6 +67,21 @@ function rows<T>(res: { data: T[] | null; error: { message: string } | null }): 
   return check(res) ?? [];
 }
 
+/** Rows per request; PostgREST caps responses at 1000 rows by default. */
+export const PAGE = 1000;
+
+type Ranged<T> = { range(from: number, to: number): PromiseLike<{ data: T[] | null; error: { message: string } | null }> };
+
+/** Read every row of a query page by page. `make` must build a fresh, stably ordered query each call. */
+export async function fetchAll<T>(make: () => Ranged<T>): Promise<T[]> {
+  const out: T[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const page = rows(await make().range(from, from + PAGE - 1));
+    out.push(...page);
+    if (page.length < PAGE) return out;
+  }
+}
+
 const HABIT_COLS = "id,name,kind,period,unit,day_target,step,period_target,routine_days,sort,start_on,archived_on";
 
 export function createSupabaseStore(sb: SupabaseClient): DataStore {
@@ -74,13 +89,13 @@ export function createSupabaseStore(sb: SupabaseClient): DataStore {
     async loadRange(from, to) {
       const [h, l, p] = await Promise.all([
         sb.from("habits").select(HABIT_COLS).order("sort"),
-        sb.from("habit_logs").select("habit_id,date,done,value").gte("date", from).lte("date", to),
-        sb.from("plan_entries").select("habit_id,date").gte("date", from).lte("date", to),
+        fetchAll(() => sb.from("habit_logs").select("habit_id,date,done,value").gte("date", from).lte("date", to).order("date").order("habit_id")),
+        fetchAll(() => sb.from("plan_entries").select("habit_id,date").gte("date", from).lte("date", to).order("date").order("habit_id")),
       ]);
       return {
         habits: rows(h).map((r) => toHabit(r as HabitRow)),
-        logs: rows(l).map((r) => toLog(r as LogRow)),
-        plans: rows(p).map((r) => toPlan(r as PlanRow)),
+        logs: l.map((r) => toLog(r as LogRow)),
+        plans: p.map((r) => toPlan(r as PlanRow)),
       };
     },
     async upsertLog(habitId, date, patch) {
@@ -138,16 +153,16 @@ export function createSupabaseStore(sb: SupabaseClient): DataStore {
     async exportAll(): Promise<ExportDump> {
       const [h, l, p, n, settings] = await Promise.all([
         sb.from("habits").select(HABIT_COLS).order("sort"),
-        sb.from("habit_logs").select("habit_id,date,done,value").order("date"),
-        sb.from("plan_entries").select("habit_id,date").order("date"),
-        sb.from("month_notes").select("month,body").order("month"),
+        fetchAll(() => sb.from("habit_logs").select("habit_id,date,done,value").order("date").order("habit_id")),
+        fetchAll(() => sb.from("plan_entries").select("habit_id,date").order("date").order("habit_id")),
+        fetchAll(() => sb.from("month_notes").select("month,body").order("month")),
         this.getSettings(),
       ]);
       return {
         habits: rows(h).map((r) => toHabit(r as HabitRow)),
-        logs: rows(l).map((r) => toLog(r as LogRow)),
-        plans: rows(p).map((r) => toPlan(r as PlanRow)),
-        notes: rows(n) as { month: string; body: string }[],
+        logs: l.map((r) => toLog(r as LogRow)),
+        plans: p.map((r) => toPlan(r as PlanRow)),
+        notes: n as { month: string; body: string }[],
         settings,
       };
     },

@@ -37,3 +37,11 @@ test("going back a week shows an empty period without breaking", async ({ page }
   await expect(page.getByText("9–15 November")).toBeVisible();
   await expect(page.getByText("Belum ada skor di periode ini")).toBeVisible();
 });
+
+test("month note stops at the 5000-character limit the database allows", async ({ page }) => {
+  await page.getByRole("link", { name: "Rapor" }).click();
+  await page.getByRole("radio", { name: "Bulan" }).click();
+  const note = page.getByLabel("Catatan bulan ini");
+  await note.fill("a".repeat(5001));
+  expect((await note.inputValue()).length).toBe(5000);
+});

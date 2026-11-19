@@ -249,6 +249,7 @@ function MonthNote({ month }: { month: string }) {
         onBlur={() => pending.current !== null && save(pending.current)}
         placeholder="Apa yang jalan bagus bulan ini? Apa yang mau diubah?"
         rows={5}
+        maxLength={5000}
         className="w-full resize-y rounded-row bg-paper p-4 text-base font-medium text-plum placeholder:text-plum-soft/70 focus:outline-none focus-visible:ring-[3px] focus-visible:ring-plum"
       />
     </section>
