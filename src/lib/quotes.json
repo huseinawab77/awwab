@@ -1,0 +1,317 @@
+[
+ {
+  "id": "ali-judge-self",
+  "text": "Orang bijaksana adalah yang menghakimi dirinya sendiri sebelum dihakimi oleh orang lain.",
+  "author": "Ali bin Abi Thalib",
+  "theme": "Muhasabah",
+  "reflection": "Luangkan waktu sejenak hari ini untuk menilai dirimu dengan jujur."
+ },
+ {
+  "id": "ali-knowledge-tree",
+  "text": "Ilmu yang tidak diamalkan bagaikan pohon yang tidak berbuah.",
+  "author": "Ali bin Abi Thalib",
+  "theme": "Ilmu & amal",
+  "reflection": "Amalkan satu hal yang kamu pelajari hari ini."
+ },
+ {
+  "id": "syafii-sword",
+  "text": "Waktu itu seperti pedang: jika engkau tidak memotongnya, ia akan memotongmu.",
+  "author": "Imam Asy-Syafi'i",
+  "theme": "Waktu",
+  "reflection": "Gunakan jam-jam berikutnya untuk hal yang paling berarti."
+ },
+ {
+  "id": "umar-accountability",
+  "text": "Hisablah dirimu sebelum kamu dihisab, dan timbanglah amalmu sebelum ditimbang.",
+  "author": "Umar bin Khattab",
+  "theme": "Introspeksi",
+  "reflection": "Tinjau progres hari ini sebelum malam tiba."
+ },
+ {
+  "id": "hasan-basri-days",
+  "text": "Wahai anak Adam, kamu hanyalah sejumlah hari; setiap hari yang berlalu, berkuranglah sebagian dirimu.",
+  "author": "Hasan al-Basri",
+  "theme": "Waktu",
+  "reflection": "Jangan biarkan hari ini berlalu tanpa jejak kebaikan."
+ },
+ {
+  "id": "rumi-change-self",
+  "text": "Kemarin aku pandai, maka aku ingin mengubah dunia. Hari ini aku bijak, maka aku mengubah diriku.",
+  "author": "Jalaluddin Rumi",
+  "theme": "Perubahan",
+  "reflection": "Perubahan terbesar dimulai dari dirimu, satu kebiasaan kecil pada satu waktu."
+ },
+ {
+  "id": "rumi-wound-light",
+  "text": "Luka adalah tempat cahaya masuk ke dalam dirimu.",
+  "author": "Jalaluddin Rumi",
+  "theme": "Harapan",
+  "reflection": "Kesulitan hari ini bisa menjadi pintu pertumbuhanmu."
+ },
+ {
+  "id": "malik-early-generations",
+  "text": "Tidak akan baik akhir umat ini kecuali dengan apa yang memperbaiki generasi awalnya.",
+  "author": "Imam Malik bin Anas",
+  "theme": "Perbaikan",
+  "reflection": "Kembali ke cara yang benar selalu lebih baik daripada jalan pintas."
+ },
+ {
+  "id": "taymiyyah-decreed",
+  "text": "Apa yang telah ditakdirkan bagimu tidak akan pernah terlewat; dan apa yang terlewat tidak pernah ditakdirkan bagimu.",
+  "author": "Ibnu Taymiyyah",
+  "theme": "Ketetapan",
+  "reflection": "Jalani hari ini dengan tenang; usahakan, lalu relakan hasilnya."
+ },
+ {
+  "id": "qayyim-void",
+  "text": "Di dalam hati ada kehampaan yang tidak dapat diisi melainkan dengan keterikatan kepada Allah.",
+  "author": "Ibnu Qayyim al-Jauziyyah",
+  "theme": "Ketenangan hati",
+  "reflection": "Jika hari ini terasa kosong, beri ruang untuk mengingat-Nya."
+ },
+ {
+  "id": "rabiah-worship",
+  "text": "Aku menyembah-Mu bukan karena takut neraka, bukan pula demi surga, melainkan semata karena Engkaulah yang layak disembah.",
+  "author": "Rabiah al-Adawiyah",
+  "theme": "Ikhlas",
+  "reflection": "Luruskan kembali niat di balik rutinitasmu."
+ },
+ {
+  "id": "ghazali-knowledge-action",
+  "text": "Ilmu tanpa amal adalah kegilaan, dan amal tanpa ilmu adalah kehampaan.",
+  "author": "Imam Al-Ghazali",
+  "theme": "Ilmu & amal",
+  "reflection": "Seimbangkan belajar dan berbuat hari ini."
+ },
+ {
+  "id": "ghazali-three-things",
+  "text": "Tiga hal yang tidak dapat dikembalikan: kata yang sudah terucap, waktu yang sudah lewat, dan kesempatan yang sudah terlewat.",
+  "author": "Imam Al-Ghazali",
+  "theme": "Kesempatan",
+  "reflection": "Kesempatan hari ini masih di tanganmu."
+ },
+ {
+  "id": "rushd-reason-revelation",
+  "text": "Akal dan wahyu sama-sama bersumber dari kebenaran, dan keduanya tidak saling bertentangan.",
+  "author": "Ibnu Rushd",
+  "theme": "Kebenaran",
+  "reflection": "Pikirkanlah dengan jernih; iman dan akal berjalan bersama."
+ },
+ {
+  "id": "battuta-storyteller",
+  "text": "Perjalanan meninggalkanmu tanpa kata, lalu mengubahmu menjadi seorang pencerita.",
+  "author": "Ibnu Battuta",
+  "theme": "Perjalanan",
+  "reflection": "Setiap langkah kecil hari ini adalah bagian dari ceritamu."
+ },
+ {
+  "id": "haytham-doubt",
+  "text": "Jika mencari kebenaran adalah tujuanmu, maka ragukanlah terus pendapatmu sendiri.",
+  "author": "Ibnu al-Haytham",
+  "theme": "Berpikir kritis",
+  "reflection": "Bersikap terbuka membuatmu terus bertumbuh."
+ },
+ {
+  "id": "farabi-happiness",
+  "text": "Tujuan tertinggi manusia adalah kebahagiaan, dan ia dicapai melalui ilmu dan amal.",
+  "author": "Al-Farabi",
+  "theme": "Kebahagiaan",
+  "reflection": "Buat hari ini bermakna, bukan hanya sibuk."
+ },
+ {
+  "id": "socrates-thinking",
+  "text": "Aku tidak dapat mengajarkan apa pun kepada siapa pun; aku hanya bisa membuat mereka berpikir.",
+  "author": "Socrates",
+  "theme": "Berpikir",
+  "reflection": "Tanyakan pada dirimu: apa yang sebenarnya penting hari ini?"
+ },
+ {
+  "id": "aristotle-excellence",
+  "text": "Kita adalah apa yang kita lakukan berulang-ulang. Keunggulan bukanlah tindakan, melainkan kebiasaan.",
+  "author": "Aristoteles",
+  "theme": "Kebiasaan",
+  "reflection": "Hari ini adalah kesempatan lain untuk berlatih."
+ },
+ {
+  "id": "laotzu-journey",
+  "text": "Perjalanan seribu mil dimulai dari satu langkah kecil.",
+  "author": "Lao Tzu",
+  "theme": "Langkah kecil",
+  "reflection": "Mulai dari yang paling kecil dan mudah hari ini."
+ },
+ {
+  "id": "confucius-persistence",
+  "text": "Tidak penting seberapa lambat kamu berjalan, selama kamu tidak berhenti.",
+  "author": "Konfusius",
+  "theme": "Ketekunan",
+  "reflection": "Lambat tidak apa-apa; yang penting tetap berjalan."
+ },
+ {
+  "id": "confucius-love-work",
+  "text": "Pilihlah pekerjaan yang kamu cintai, maka kamu tidak akan merasa bekerja seumur hidupmu.",
+  "author": "Konfusius",
+  "theme": "Cinta kerja",
+  "reflection": "Temukan satu bagian hari ini yang benar-benar kamu nikmati."
+ },
+ {
+  "id": "seneca-waste",
+  "text": "Bukan kita punya waktu yang sedikit, tetapi kita banyak menyia-siakannya.",
+  "author": "Seneca",
+  "theme": "Waktu",
+  "reflection": "Lindungi waktumu dari hal-hal yang tidak penting."
+ },
+ {
+  "id": "epictetus-view",
+  "text": "Bukan kejadian yang mengganggu manusia, melainkan pandangan mereka tentang kejadian itu.",
+  "author": "Epiktetos",
+  "theme": "Pandangan",
+  "reflection": "Cara memandang hari ini bisa kamu pilih."
+ },
+ {
+  "id": "marcus-power",
+  "text": "Kamu memiliki kuasa atas pikiranmu, bukan atas kejadian di luar dirimu. Di sanalah kekuatanmu.",
+  "author": "Marcus Aurelius",
+  "theme": "Pikiran",
+  "reflection": "Yang bisa kamu kendalikan hari ini: sikap dan usahamu."
+ },
+ {
+  "id": "davinci-simplicity",
+  "text": "Kesederhanaan adalah kecanggihan tertinggi.",
+  "author": "Leonardo da Vinci",
+  "theme": "Kesederhanaan",
+  "reflection": "Sederhanakan daftar hari ini; fokus pada yang terpenting."
+ },
+ {
+  "id": "franklin-today",
+  "text": "Jangan menunda pekerjaan hari ini sampai besok.",
+  "author": "Benjamin Franklin",
+  "theme": "Hari ini",
+  "reflection": "Ada satu tugas kecil yang bisa kamu selesaikan sekarang."
+ },
+ {
+  "id": "edison-ways",
+  "text": "Aku tidak gagal. Aku hanya menemukan sepuluh ribu cara yang tidak berhasil.",
+  "author": "Thomas Alva Edison",
+  "theme": "Kegagalan",
+  "reflection": "Hilangnya satu hari bukan akhir; mulai lagi dari sini."
+ },
+ {
+  "id": "einstein-insanity",
+  "text": "Kebodohan adalah melakukan hal yang sama berulang-ulang dan mengharapkan hasil yang berbeda.",
+  "author": "Albert Einstein",
+  "theme": "Perubahan",
+  "reflection": "Kalau hasilnya belum memuaskan, coba cara yang sedikit berbeda."
+ },
+ {
+  "id": "einstein-imagination",
+  "text": "Imajinasi lebih penting daripada pengetahuan.",
+  "author": "Albert Einstein",
+  "theme": "Imajinasi",
+  "reflection": "Bayangkan dirimu yang sudah konsisten; lalu jadilah dia."
+ },
+ {
+  "id": "newton-giants",
+  "text": "Jika aku melihat lebih jauh, itu karena aku berdiri di bahu para raksasa.",
+  "author": "Isaac Newton",
+  "theme": "Ilmu",
+  "reflection": "Belajar dari orang lain mempercepat perjalananmu."
+ },
+ {
+  "id": "curie-understand",
+  "text": "Tidak ada yang perlu ditakuti dalam hidup; semua hanya perlu dipahami.",
+  "author": "Marie Curie",
+  "theme": "Keberanian",
+  "reflection": "Hadapi hal yang kamu hindari; pelajari dulu, lalu kerjakan."
+ },
+ {
+  "id": "churchill-enthusiasm",
+  "text": "Sukses adalah berjalan dari kegagalan ke kegagalan tanpa kehilangan antusiasme.",
+  "author": "Winston Churchill",
+  "theme": "Antusiasme",
+  "reflection": "Jaga semangatmu walau hasilnya belum terlihat."
+ },
+ {
+  "id": "helen-together",
+  "text": "Sendirian kita hanya bisa sedikit; bersama-sama kita bisa banyak.",
+  "author": "Helen Keller",
+  "theme": "Kebersamaan",
+  "reflection": "Minta bantuan atau bantu seseorang hari ini."
+ },
+ {
+  "id": "mandela-impossible",
+  "text": "Segala sesuatu selalu tampak mustahil sampai semuanya selesai dikerjakan.",
+  "author": "Nelson Mandela",
+  "theme": "Mustahil",
+  "reflection": "Target besar hanyalah kumpulan hari-hari kecil yang konsisten."
+ },
+ {
+  "id": "gandhi-change",
+  "text": "Jadilah perubahan yang ingin kamu lihat di dunia.",
+  "author": "Mahatma Gandhi",
+  "theme": "Perubahan",
+  "reflection": "Tunjukkan perubahannya mulai dari hari ini."
+ },
+ {
+  "id": "frank-giving",
+  "text": "Tidak ada seorang pun yang menjadi miskin karena memberi.",
+  "author": "Anne Frank",
+  "theme": "Memberi",
+  "reflection": "Sisihkan sedikit kebaikan untuk orang lain hari ini."
+ },
+ {
+  "id": "schweitzer-happiness",
+  "text": "Sukses bukanlah kunci kebahagiaan; kebahagiaanlah kunci sukses.",
+  "author": "Albert Schweitzer",
+  "theme": "Kebahagiaan",
+  "reflection": "Nikmati prosesnya, bukan hanya hasilnya."
+ },
+ {
+  "id": "disney-start",
+  "text": "Cara memulai adalah dengan berhenti berbicara dan mulai mengerjakan.",
+  "author": "Walt Disney",
+  "theme": "Memulai",
+  "reflection": "Cukup rencananya; waktunya mulai bergerak."
+ },
+ {
+  "id": "jobs-limited-time",
+  "text": "Waktumu terbatas, jangan sia-siakan dengan menjalani hidup orang lain.",
+  "author": "Steve Jobs",
+  "theme": "Waktu",
+  "reflection": "Jalani targetmu sendiri, bukan ukuran orang lain."
+ },
+ {
+  "id": "muhammadali-days",
+  "text": "Jangan menghitung hari-harimu; buatlah setiap hari berarti.",
+  "author": "Muhammad Ali",
+  "theme": "Hari",
+  "reflection": "Satu hari yang diisi penuh lebih berarti dari sepuluh yang kosong."
+ },
+ {
+  "id": "gibran-work-love",
+  "text": "Pekerjaan adalah cinta yang tampak.",
+  "author": "Kahlil Gibran",
+  "theme": "Cinta kerja",
+  "reflection": "Kerjakan tugas hari ini dengan hati, bukan hanya tangan."
+ },
+ {
+  "id": "soekarno-dream",
+  "text": "Bermimpilah setinggi langit. Jika engkau jatuh, engkau akan jatuh di antara bintang-bintang.",
+  "author": "Soekarno",
+  "theme": "Mimpi",
+  "reflection": "Pasang target yang tinggi, mulai dari langkah hari ini."
+ },
+ {
+  "id": "kartini-light",
+  "text": "Habis gelap terbitlah terang.",
+  "author": "R.A. Kartini",
+  "theme": "Harapan",
+  "reflection": "Masa sulit selalu berakhir bagi yang terus berjalan."
+ },
+ {
+  "id": "habibie-love-knowledge",
+  "text": "Cinta tanpa ilmu adalah kebutaan, dan ilmu tanpa cinta adalah kesombongan.",
+  "author": "B.J. Habibie",
+  "theme": "Cinta & ilmu",
+  "reflection": "Belajarlah dengan rendah hati dan kerjakan dengan cinta."
+ }
+]
