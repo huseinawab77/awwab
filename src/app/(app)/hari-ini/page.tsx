@@ -4,6 +4,7 @@ import { HabitRow } from "@/components/HabitRow";
 import { RelaxCard } from "@/components/RelaxCard";
 import { ScorePanel, type WeekPill } from "@/components/ScorePanel";
 import { ErrorView, LoadingView } from "@/components/StateViews";
+import { TimerSheet } from "@/components/TimerSheet";
 import { AddToTodaySheet, ValueSheet } from "@/components/TodaySheets";
 import { useRange } from "@/hooks/useRange";
 import { addDays, formatLong, formatShort, monthEnd, monthStart, todayJakarta, weekDays, weekStart } from "@/lib/dates";
@@ -27,6 +28,7 @@ function Today({ today }: { today: string }) {
   const [name, setName] = useState<string | null>(null);
   const [editing, setEditing] = useState<PlanItem | null>(null);
   const [adding, setAdding] = useState(false);
+  const [timing, setTiming] = useState<PlanItem | null>(null);
 
   const from = weekStart(date) < monthStart(date) ? weekStart(date) : monthStart(date);
   const weekEnd = weekDays(date)[6];
@@ -83,6 +85,21 @@ function Today({ today }: { today: string }) {
       onToggle={() => toggle(i)}
       onStep={(d) => step(i, d)}
       onEdit={() => setEditing(i)}
+      extra={
+        i.habit.kind === "qty" && i.habit.unit === "menit" ? (
+          <button
+            type="button"
+            onClick={() => setTiming(i)}
+            aria-label={`Timer ${i.habit.name}`}
+            className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-lilac text-lilac-ink"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              <circle cx="12" cy="13" r="8" />
+              <path d="M12 9v4l2.5 2M9 2h6" />
+            </svg>
+          </button>
+        ) : undefined
+      }
     />
   );
 
@@ -186,6 +203,14 @@ function Today({ today }: { today: string }) {
         dayLabel={isToday ? "hari ini" : formatShort(date)}
         onSave={(v) => editing && setLog(editing.habit.id, date, { value: v })}
         onClose={() => setEditing(null)}
+      />
+      <TimerSheet
+        habit={timing?.habit ?? null}
+        date={date}
+        current={view.items.find((i) => i.habit.id === timing?.habit.id)?.value ?? 0}
+        otherName={(id) => data.habits.find((h) => h.id === id)?.name ?? null}
+        onFinish={(v) => timing && setLog(timing.habit.id, date, { value: v })}
+        onClose={() => setTiming(null)}
       />
       <AddToTodaySheet
         open={adding}

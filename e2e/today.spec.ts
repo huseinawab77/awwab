@@ -86,3 +86,26 @@ test("can look back at past days but not forward", async ({ page }) => {
   await page.getByRole("button", { name: "Kembali ke hari ini" }).click();
   await expect(page.getByText("Rabu, 18 November")).toBeVisible();
 });
+
+test("the focus timer adds its minutes to the habit", async ({ page }) => {
+  await freshStart(page);
+  await page.getByRole("button", { name: "Tambah ke hari ini" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: /Deep work/ }).click();
+  await page.getByRole("button", { name: "Timer Deep work" }).click();
+  await page.getByRole("button", { name: "Mulai" }).click();
+  await page.clock.fastForward("25:00");
+  await expect(page.getByRole("timer")).toHaveText("25:00");
+  await page.getByRole("button", { name: "Selesai" }).click();
+  await expect(page.getByText("25 dari 90 menit")).toBeVisible();
+});
+
+test("finishing a timer with no minutes writes nothing", async ({ page }) => {
+  await freshStart(page);
+  await page.getByRole("button", { name: "Tambah ke hari ini" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: /Deep work/ }).click();
+  await page.getByRole("button", { name: "Timer Deep work" }).click();
+  await page.getByRole("button", { name: "Mulai" }).click();
+  await page.getByRole("button", { name: "Selesai" }).click();
+  await expect(page.getByText("Belum ada menit yang tercatat")).toBeVisible();
+  await expect(page.getByText("0 dari 90 menit")).toBeVisible();
+});
