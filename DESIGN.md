@@ -20,7 +20,7 @@ Catatan: arah ini dari referensi Awab (TODU, Mood Diary, app belajar pastel), be
 | `--track` | #F1EBDD | rel bar progres yang kosong |
 | `--tangerine-soft` | #FFB98F | progres sebagian (segmen bar energi, skor < 80) |
 
-Teks berwarna: `--tangerine-ink` #B34A12, `--mint-ink` #3D6B1F, `--lilac-ink` #6A3FC9.
+Teks berwarna: `--tangerine-ink` #9E3F0C, `--mint-ink` #3D6B1F, `--lilac-ink` #6A3FC9.
 
 ## Huruf
 - Display: **Bricolage Grotesque** 700/800 — judul layar, angka skor, nama bagian.

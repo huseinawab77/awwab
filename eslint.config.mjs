@@ -12,7 +12,16 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" }],
+    },
+  },
+  {
     ignores: [
+      ".next-demo/**",
+      ".superpowers/**",
+      "playwright-report/**",
+      "test-results/**",
       "node_modules/**",
       ".next/**",
       "out/**",
