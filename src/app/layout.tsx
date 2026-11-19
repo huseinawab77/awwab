@@ -32,8 +32,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id">
-      <body className={`${jakarta.variable} ${bricolage.variable} antialiased`}>
+    <html lang="id" className={`${jakarta.variable} ${bricolage.variable}`}>
+      <body className="antialiased">
         {children}
         <Toaster />
       </body>
