@@ -1,24 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-
-// Wednesday 18 Nov 2026, 10:00 WIB — gym is planned by routine on Wednesdays.
-const WED_10AM = new Date("2026-11-18T03:00:00Z");
-
-async function freshStart(page: Page) {
-  await page.clock.install({ time: WED_10AM });
-  await page.goto("/mulai");
-  await page.evaluate(() => {
-    localStorage.clear();
-    // Skip the daily quote screen in these tests.
-    localStorage.setItem(
-      "awwab:demo-db",
-      JSON.stringify({ settings: { showQuote: false, lastQuoteOn: null, displayName: "Awab" } }),
-    );
-  });
-  await page.reload();
-  await page.getByRole("button", { name: "Lanjut (18 kebiasaan)" }).click();
-  await page.getByRole("button", { name: "Mulai hari ini" }).click();
-  await expect(page).toHaveURL(/\/hari-ini$/);
-}
+import { freshStart } from "./helpers";
 
 const score = (page: Page) => page.getByTestId("score");
 
