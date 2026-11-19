@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DOW_SHORT, fmtNum, routineText, targetText } from "./format";
+import { DOW_SHORT, fmtNum, routineText, targetText, trendText } from "./format";
 import type { Habit } from "./types";
 
 const base: Habit = {
@@ -28,5 +28,17 @@ describe("format", () => {
     expect(DOW_SHORT).toEqual(["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"]);
     expect(routineText([5, 1, 3])).toBe("Sen, Rab, Jum");
     expect(routineText([])).toBe("");
+  });
+});
+
+describe("trendText", () => {
+  it("shows the signed change from the previous period", () => {
+    expect(trendText(74, 70, "week")).toBe("+4 dari minggu lalu");
+    expect(trendText(66, 69, "month")).toBe("−3 dari bulan lalu");
+    expect(trendText(70, 70, "week")).toBe("Sama kayak minggu lalu");
+  });
+  it("is null when either side has no data", () => {
+    expect(trendText(70, null, "week")).toBeNull();
+    expect(trendText(null, 60, "month")).toBeNull();
   });
 });

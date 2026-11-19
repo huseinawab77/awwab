@@ -115,3 +115,17 @@ export function habitConsistency(
     worst: worst !== best && ratio(worst) < 1 && ratio(worst) < ratio(best) ? worst : null,
   };
 }
+
+/** Average day score per Monday-start week of a month, labeled "Mg 1", "Mg 2", … (null when a week has no scores). */
+export function weeklyAverages(
+  days: string[],
+  scoreOf: (d: string) => number | null,
+): { label: string; value: number | null }[] {
+  const groups: string[][] = [];
+  for (const d of days) {
+    const last = groups[groups.length - 1];
+    if (last && weekStart(last[0]) === weekStart(d)) last.push(d);
+    else groups.push([d]);
+  }
+  return groups.map((g, i) => ({ label: `Mg ${i + 1}`, value: averageScore(g.map(scoreOf)) }));
+}

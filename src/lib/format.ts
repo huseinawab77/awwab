@@ -22,3 +22,12 @@ export function targetText(h: Habit): string {
 export function routineText(days: number[]): string {
   return [...days].sort((a, b) => a - b).map((d) => DOW_SHORT[d - 1]).join(", ");
 }
+
+/** "+4 dari minggu lalu" / "−3 dari bulan lalu" / "Sama kayak minggu lalu"; null when there's nothing to compare. */
+export function trendText(now: number | null, before: number | null, period: "week" | "month"): string | null {
+  if (now === null || before === null) return null;
+  const ref = period === "week" ? "minggu lalu" : "bulan lalu";
+  const diff = now - before;
+  if (diff === 0) return `Sama kayak ${ref}`;
+  return `${diff > 0 ? "+" : "−"}${Math.abs(diff)} dari ${ref}`;
+}

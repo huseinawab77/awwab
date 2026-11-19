@@ -8,7 +8,9 @@ import {
   periodRange,
   planFor,
   targetProgress,
+  weeklyAverages,
 } from "./score";
+import { monthDays } from "./dates";
 import type { Habit, HabitLog, PlanEntry } from "./types";
 
 let n = 0;
@@ -185,5 +187,18 @@ describe("habitConsistency", () => {
     const r = habitConsistency([uang, baca], days3, perfect);
     expect(r.best?.habit.id).toBe("uang");
     expect(r.worst).toBeNull();
+  });
+});
+
+describe("weeklyAverages", () => {
+  it("groups the month's days by Monday-start week and averages real scores", () => {
+    // November 2026: 1 Nov is a Sunday, so week 1 is just the 1st.
+    const scores: Record<string, number> = { "2026-11-01": 50, "2026-11-02": 60, "2026-11-03": 80 };
+    const days = monthDays("2026-11-18");
+    const res = weeklyAverages(days, (d) => scores[d] ?? null);
+    expect(res.map((r) => r.label)).toEqual(["Mg 1", "Mg 2", "Mg 3", "Mg 4", "Mg 5", "Mg 6"]);
+    expect(res[0].value).toBe(50);
+    expect(res[1].value).toBe(70);
+    expect(res[2].value).toBeNull();
   });
 });
