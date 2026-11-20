@@ -18,9 +18,15 @@ export function quoteFor(date: string): Quote {
   return QUOTES[i];
 }
 
+export type TimeOfDay = "pagi" | "siang" | "sore" | "malam";
+
+export function timeOfDay(hour: number): TimeOfDay {
+  if (hour >= 4 && hour <= 10) return "pagi";
+  if (hour >= 11 && hour <= 14) return "siang";
+  if (hour >= 15 && hour <= 17) return "sore";
+  return "malam";
+}
+
 export function greeting(hour: number): string {
-  if (hour >= 4 && hour <= 10) return "Selamat pagi";
-  if (hour >= 11 && hour <= 14) return "Selamat siang";
-  if (hour >= 15 && hour <= 17) return "Selamat sore";
-  return "Selamat malam";
+  return `Selamat ${timeOfDay(hour)}`;
 }

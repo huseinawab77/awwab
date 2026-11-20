@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { greeting, QUOTES, quoteFor } from "./quotes";
+import { greeting, QUOTES, quoteFor, timeOfDay } from "./quotes";
 
 describe("quoteFor", () => {
   it("gives a different quote on consecutive days and the same one on the same day", () => {
@@ -22,5 +22,18 @@ describe("greeting", () => {
     expect(greeting(16)).toBe("Selamat sore");
     expect(greeting(18)).toBe("Selamat malam");
     expect(greeting(2)).toBe("Selamat malam");
+  });
+});
+
+describe("timeOfDay", () => {
+  it("matches the greeting's hours", () => {
+    expect(timeOfDay(4)).toBe("pagi");
+    expect(timeOfDay(10)).toBe("pagi");
+    expect(timeOfDay(11)).toBe("siang");
+    expect(timeOfDay(14)).toBe("siang");
+    expect(timeOfDay(15)).toBe("sore");
+    expect(timeOfDay(17)).toBe("sore");
+    expect(timeOfDay(18)).toBe("malam");
+    expect(timeOfDay(3)).toBe("malam");
   });
 });

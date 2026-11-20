@@ -3,11 +3,11 @@ import { freshStart } from "./helpers";
 
 const score = (page: Page) => page.getByTestId("score");
 
-test("starts at 0 with a waving cat and reaches 100 when everything is done", async ({ page }) => {
+test("starts at 0 with a sleeping cat and reaches 100 when everything is done", async ({ page }) => {
   await freshStart(page);
   await expect(page.getByRole("heading", { name: "Halo, Awab" })).toBeVisible();
   await expect(score(page)).toHaveText("0");
-  await expect(page.getByRole("img", { name: "Kucing AWWAB melambai, siap mulai hari" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "Kucing AWWAB masih tidur" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Tandai Gym beres" })).toBeVisible();
 
   const unchecked = page.getByRole("button", { name: /^Tandai .* beres$/ });
@@ -18,7 +18,7 @@ test("starts at 0 with a waving cat and reaches 100 when everything is done", as
 
   await expect(score(page)).toHaveText("100");
   await expect(page.getByText("Semua beres hari ini. Mantap!")).toBeVisible();
-  await expect(page.getByRole("img", { name: "Kucing AWWAB melompat kegirangan, mata berbinar" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "Kucing AWWAB melompat kegirangan" })).toBeVisible();
 });
 
 test("typed values are validated and overshoot is shown", async ({ page }) => {
@@ -46,6 +46,8 @@ test("plus and minus change a quantity by its step, never below zero", async ({ 
 
 test("a failed save is rolled back with a message", async ({ page, context }) => {
   await freshStart(page);
+  // Go offline only once the day has loaded, so the failure is the save, not the load.
+  await expect(page.getByRole("button", { name: "Tandai Journaling beres" })).toBeVisible();
   await context.setOffline(true);
   await page.getByRole("button", { name: "Tandai Journaling beres" }).click();
   await expect(page.getByText("Belum tersimpan, coba lagi")).toBeVisible();

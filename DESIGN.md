@@ -43,11 +43,12 @@ Warna chip ikon (latar / garis ikon), dipilih per kebiasaan: peach #FFE1CC / #9E
 
 ## Ilustrasi & ikon
 - Ikon: **Lucide**, garis 2px, ujung bulat. Ikon kebiasaan dipilih dari 24 ikon dalam 3 kelompok.
-- Kucing: **vektor full body** (`src/components/Mascot.tsx`), oranye belang, moncong krem, pipi pink. Lima emosi dari skor hari ini: pagi (belum ada yang beres, melambai), ngantuk (<50), senyum (50–79), senang (80–99, kedua tangan naik), berbinar (100, melompat + bintang).
+- Kucing: **lukisan full body dari lembar pose Awab** (`public/maskot/kucing-*.webp`, dipotong dari gambar kiriman Awab 20 Nov), oranye belang, gaya lukisan sama dengan maskot asli. Lima pose di panel skor Hari Ini, makin rajin makin bangun: tidur meringkuk (0), menguap (1–49), melambai (50–79), pipi merah senang (80–99), lompat kegirangan (100). Ketuk kucing = "elus" (goyang + hati).
+- Layar kutipan: ilustrasi langit + bukit datar yang ikut waktu (pagi oranye-krem, siang biru-hijau, sore jingga, malam biru tua + bulan & bintang), kucing duduk di bukit (pagi/sore melambai, siang senang, malam menguap), kutipan besar dengan tanda kutip oranye.
 - Kepala kucing PNG lama masih dipakai di Masuk, Mulai, Kutipan, dan Rapor.
 - Tanpa emoji, tanpa gradasi dekoratif.
 
 ## Gerak
-- Kucing: napas, kedip, ekor goyang terus-menerus dan pelan; lompat sekali saat emosinya berubah.
+- Kucing: gerak diam per pose (napas saat tidur, meregang saat menguap, goyang saat melambai, memantul + hati saat senang, lompat + percikan saat girang), "z" melayang saat tidur/menguap; lompat sekali saat pose berubah. Langit kutipan: awan bergeser pelan, cahaya matahari/bulan berdenyut, bintang berkelip.
 - Lainnya hanya karena aksi pengguna: tombol mengecil 0.96 saat ditekan, centang pop 200ms, bar dan skor bergerak 240–320ms ease-out, konfeti saat skor 100.
 - Tidak ada animasi saat scroll. `prefers-reduced-motion` mematikan semuanya.
