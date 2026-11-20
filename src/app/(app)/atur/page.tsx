@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut } from "@/app/(auth)/actions";
+import { HabitIcon } from "@/components/HabitIcon";
 import { ErrorView, LoadingView } from "@/components/StateViews";
 import { toast } from "@/components/Toast";
 import { todayJakarta } from "@/lib/dates";
@@ -10,10 +11,10 @@ import { getStore, IS_DEMO } from "@/lib/store";
 import { createClient } from "@/lib/supabase/client";
 import type { Habit, Period, Settings } from "@/lib/types";
 
-const GROUPS: { period: Period; title: string; tint: string }[] = [
-  { period: "daily", title: "Harian", tint: "bg-mint" },
-  { period: "weekly", title: "Mingguan", tint: "bg-lilac" },
-  { period: "monthly", title: "Bulanan", tint: "bg-peach" },
+const GROUPS: { period: Period; title: string }[] = [
+  { period: "daily", title: "Harian" },
+  { period: "weekly", title: "Mingguan" },
+  { period: "monthly", title: "Bulanan" },
 ];
 
 const SAVE_FAILED = "Belum tersimpan, coba lagi";
@@ -89,29 +90,32 @@ export default function AturPage() {
   return (
     <div className="flex flex-col gap-4">
       <header className="px-1">
-        <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">Atur</h1>
+        <h1 className="font-display text-[32px] font-medium leading-tight tracking-[-0.035em]">Atur</h1>
       </header>
 
       <div className="flex items-center justify-between px-1">
-        <h2 className="font-display text-xl font-bold">Kebiasaan</h2>
-        <Link href="/atur/kebiasaan/baru" className="flex h-11 items-center rounded-full bg-tangerine px-4 text-sm font-extrabold text-plum">
+        <h2 className="font-display text-xl font-medium">Kebiasaan</h2>
+        <Link href="/atur/kebiasaan/baru" className="flex h-11 items-center rounded-full bg-tangerine px-4 text-sm font-semibold text-ink">
           + Kebiasaan baru
         </Link>
       </div>
 
-      {GROUPS.map(({ period, title, tint }) => {
+      {GROUPS.map(({ period, title }) => {
         const list = active.filter((h) => h.period === period);
         if (list.length === 0) return null;
         return (
-          <section key={period} aria-label={title} className={`flex flex-col gap-2 rounded-panel p-3 ${tint}`}>
-            <h3 className="px-2 pt-1 font-display text-lg font-bold">{title}</h3>
+          <section key={period} aria-label={title} className="flex flex-col gap-2">
+            <h3 className="px-1 pt-1 text-sm text-muted">{title}</h3>
             {list.map((h, i) => (
-              <div key={h.id} className="flex items-center gap-1.5 rounded-row bg-paper py-1.5 pl-1.5 pr-2">
-                <Link href={`/atur/kebiasaan/${h.id}`} className="flex min-h-11 min-w-0 flex-1 flex-col justify-center rounded-2xl px-2.5 py-1">
-                  <span className="font-extrabold">{h.name}</span>
-                  <span className="text-xs font-semibold text-plum-soft">
+              <div key={h.id} className="flex min-h-[68px] items-center gap-1.5 rounded-row bg-paper p-2.5 shadow-card">
+                <Link href={`/atur/kebiasaan/${h.id}`} className="flex min-h-11 min-w-0 flex-1 items-center gap-3 rounded-2xl">
+                  <HabitIcon icon={h.icon} color={h.color} />
+                  <span className="flex min-w-0 flex-col">
+                  <span className="font-semibold">{h.name}</span>
+                  <span className="text-[13px] text-muted">
                     {targetText(h)}
                     {h.routineDays.length > 0 && `, ${routineText(h.routineDays)}`}
+                  </span>
                   </span>
                 </Link>
                 <OrderButton label={`Naikkan ${h.name}`} dir="up" disabled={i === 0 || busy} onClick={() => move(list, i, -1)} />
@@ -123,16 +127,17 @@ export default function AturPage() {
       })}
 
       {archived.length > 0 && (
-        <section aria-label="Diarsipkan" className="flex flex-col gap-2 rounded-panel bg-track p-3">
-          <h3 className="px-2 pt-1 font-display text-lg font-bold">Diarsipkan</h3>
+        <section aria-label="Diarsipkan" className="flex flex-col gap-2">
+          <h3 className="px-1 pt-1 text-sm text-muted">Diarsipkan</h3>
           {archived.map((h) => (
-            <div key={h.id} className="flex items-center gap-3 rounded-row bg-paper px-4 py-2">
-              <span className="flex-1 font-extrabold text-plum-soft">{h.name}</span>
+            <div key={h.id} className="flex min-h-[60px] items-center gap-3 rounded-row bg-paper p-2.5 opacity-80 shadow-card">
+              <HabitIcon icon={h.icon} color={h.color} size={40} />
+              <span className="flex-1 font-semibold text-muted">{h.name}</span>
               <button
                 type="button"
                 onClick={() => restore(h)}
                 aria-label={`Pulihkan ${h.name}`}
-                className="h-11 rounded-full bg-butter px-4 text-sm font-extrabold text-plum ring-2 ring-track"
+                className="h-11 rounded-full bg-butter px-4 text-sm font-semibold text-ink border-[1.5px] border-line"
               >
                 Pulihkan
               </button>
@@ -141,8 +146,8 @@ export default function AturPage() {
         </section>
       )}
 
-      <section aria-label="Tampilan" className="flex flex-col gap-1 rounded-panel bg-paper p-4">
-        <h2 className="px-1 font-display text-xl font-bold">Tampilan</h2>
+      <section aria-label="Tampilan" className="flex flex-col gap-1 rounded-panel bg-paper p-4 shadow-card">
+        <h2 className="px-1 font-display text-xl font-medium">Tampilan</h2>
         <button
           type="button"
           role="switch"
@@ -152,12 +157,12 @@ export default function AturPage() {
           className="flex min-h-14 items-center gap-3 rounded-2xl px-1 text-left"
         >
           <span className="flex flex-1 flex-col">
-            <span className="font-extrabold">Kutipan harian</span>
-            <span className="text-xs font-semibold text-plum-soft">Satu kutipan penyemangat tiap pagi sebelum Hari Ini</span>
+            <span className="font-semibold">Kutipan harian</span>
+            <span className="text-xs font-semibold text-muted">Satu kutipan penyemangat tiap pagi sebelum Hari Ini</span>
           </span>
           <span
             aria-hidden="true"
-            className={`flex h-8 w-14 flex-none items-center rounded-full p-1 transition-colors ${settings.showQuote ? "bg-plum" : "bg-track"}`}
+            className={`flex h-8 w-14 flex-none items-center rounded-full p-1 transition-colors ${settings.showQuote ? "bg-ink" : "bg-track"}`}
           >
             <span
               className={`h-6 w-6 rounded-full transition-transform motion-reduce:transition-none ${settings.showQuote ? "translate-x-6 bg-sun" : "bg-paper"}`}
@@ -168,10 +173,10 @@ export default function AturPage() {
 
       <Account />
 
-      <section aria-label="Data" className="flex flex-col gap-2 rounded-panel bg-paper p-4">
-        <h2 className="px-1 font-display text-xl font-bold">Data</h2>
-        <p className="px-1 text-sm font-semibold text-plum-soft">Simpan salinan semua kebiasaan, catatan, dan riwayat kamu sebagai file JSON.</p>
-        <button type="button" onClick={downloadBackup} className="mt-1 min-h-[52px] rounded-full bg-butter px-6 font-extrabold text-plum ring-2 ring-track">
+      <section aria-label="Data" className="flex flex-col gap-2 rounded-panel bg-paper p-4 shadow-card">
+        <h2 className="px-1 font-display text-xl font-medium">Data</h2>
+        <p className="px-1 text-sm font-semibold text-muted">Simpan salinan semua kebiasaan, catatan, dan riwayat kamu sebagai file JSON.</p>
+        <button type="button" onClick={downloadBackup} className="mt-1 min-h-[52px] rounded-full bg-butter px-6 font-semibold text-ink border-[1.5px] border-line">
           Unduh cadangan
         </button>
       </section>
@@ -207,20 +212,20 @@ function Account() {
   }, []);
 
   return (
-    <section aria-label="Akun" className="flex flex-col gap-2 rounded-panel bg-paper p-4">
-      <h2 className="px-1 font-display text-xl font-bold">Akun</h2>
-      <p className="break-all px-1 text-sm font-semibold text-plum-soft">
+    <section aria-label="Akun" className="flex flex-col gap-2 rounded-panel bg-paper p-4 shadow-card">
+      <h2 className="px-1 font-display text-xl font-medium">Akun</h2>
+      <p className="break-all px-1 text-sm font-semibold text-muted">
         {IS_DEMO ? "Mode demo, data cuma ada di browser ini" : (email ?? "Memuat…")}
       </p>
       <div className="mt-1 grid grid-cols-2 gap-2">
         <Link
           href="/password-baru"
-          className="flex min-h-[52px] items-center justify-center rounded-full bg-butter px-4 text-sm font-extrabold text-plum ring-2 ring-track"
+          className="flex min-h-[52px] items-center justify-center rounded-full bg-butter px-4 text-sm font-semibold text-ink border-[1.5px] border-line"
         >
           Ganti password
         </Link>
         <form action={signOut}>
-          <button type="submit" className="min-h-[52px] w-full rounded-full bg-plum px-4 text-sm font-extrabold text-paper">
+          <button type="submit" className="min-h-[52px] w-full rounded-full bg-ink px-4 text-sm font-semibold text-paper">
             Keluar
           </button>
         </form>
@@ -236,7 +241,7 @@ function OrderButton({ label, dir, disabled, onClick }: { label: string; dir: "u
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-butter text-plum disabled:opacity-30"
+      className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-butter text-ink disabled:opacity-30"
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d={dir === "up" ? "M6 15l6-6 6 6" : "M6 9l6 6 6-6"} />

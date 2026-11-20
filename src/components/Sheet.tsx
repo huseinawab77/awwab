@@ -53,7 +53,7 @@ export function Sheet({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <div className="absolute inset-0 bg-plum/40" onClick={onClose} aria-hidden="true" />
+      <div className="absolute inset-0 bg-ink/40" onClick={onClose} aria-hidden="true" />
       <div
         ref={panel}
         role="dialog"
@@ -62,9 +62,9 @@ export function Sheet({
         tabIndex={-1}
         className="sheet-up relative max-h-[88dvh] w-full max-w-md overflow-y-auto rounded-t-panel bg-butter px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3"
       >
-        <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-plum/20" aria-hidden="true" />
+        <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-ink/20" aria-hidden="true" />
         <div className="mb-4 flex items-center justify-between gap-3 px-1">
-          <h2 id={titleId} className="font-display text-xl font-bold">
+          <h2 id={titleId} className="font-display text-xl font-medium">
             {title}
           </h2>
           <button
@@ -72,7 +72,7 @@ export function Sheet({
             data-sheet-close
             onClick={onClose}
             aria-label="Tutup"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-plum"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-ink"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" />

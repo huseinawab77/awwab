@@ -41,10 +41,12 @@ describe("toPatch", () => {
       step: 1,
       periodTarget: null,
       routineDays: [],
+      icon: "sprout",
+      color: "peach",
     });
     expect(
       toPatch({ ...emptyDraft(), name: " Gym ", period: "weekly", periodTarget: "3", routineDays: [2, 4] }),
-    ).toEqual({ name: "Gym", kind: "check", period: "weekly", unit: "kali", dayTarget: null, step: null, periodTarget: 3, routineDays: [2, 4] });
+    ).toEqual({ name: "Gym", kind: "check", period: "weekly", unit: "kali", dayTarget: null, step: null, periodTarget: 3, routineDays: [2, 4], icon: "sprout", color: "peach" });
   });
   it("accepts a decimal comma", () => {
     expect(toPatch({ ...ok, dayTarget: "2,5", step: "0,5" }).dayTarget).toBe(2.5);
@@ -55,10 +57,19 @@ describe("draftFrom", () => {
   it("round-trips an existing habit", () => {
     const h: Habit = {
       id: "a", name: "Deep work", kind: "qty", period: "weekly", unit: "menit", dayTarget: 90, step: 15,
-      periodTarget: 600, routineDays: [1], sort: 0, startOn: "2026-11-18", archivedOn: null,
+      periodTarget: 600, routineDays: [1], icon: "brain", color: "sky", sort: 0, startOn: "2026-11-18", archivedOn: null,
     };
     expect(toPatch(draftFrom(h))).toEqual({
-      name: "Deep work", kind: "qty", period: "weekly", unit: "menit", dayTarget: 90, step: 15, periodTarget: 600, routineDays: [1],
+      name: "Deep work", kind: "qty", period: "weekly", unit: "menit", dayTarget: 90, step: 15, periodTarget: 600, routineDays: [1], icon: "brain", color: "sky",
     });
+  });
+});
+
+describe("icon and colour", () => {
+  it("a new draft starts with the fallback look", () => {
+    expect(emptyDraft()).toMatchObject({ icon: "sprout", color: "peach" });
+  });
+  it("toPatch keeps the picked icon and colour", () => {
+    expect(toPatch({ ...ok, icon: "droplet", color: "teal" })).toMatchObject({ icon: "droplet", color: "teal" });
   });
 });

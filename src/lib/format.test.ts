@@ -4,7 +4,7 @@ import type { Habit } from "./types";
 
 const base: Habit = {
   id: "x", name: "x", kind: "check", period: "daily", unit: null, dayTarget: null, step: null,
-  periodTarget: null, routineDays: [], sort: 0, startOn: "2026-11-01", archivedOn: null,
+  periodTarget: null, routineDays: [], icon: "sprout", color: "peach", sort: 0, startOn: "2026-11-01", archivedOn: null,
 };
 
 describe("format", () => {

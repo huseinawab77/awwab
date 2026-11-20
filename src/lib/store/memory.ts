@@ -1,4 +1,5 @@
 // localStorage-backed store for local UI tests (NEXT_PUBLIC_DEMO=1). Same contract as Supabase.
+import { isHabitColor, isHabitIcon, suggestLook } from "../habitIcons";
 import type { Habit, HabitLog, NewHabit, PlanEntry, Settings } from "../types";
 import type { DataStore, ExportDump } from "./types";
 
@@ -24,7 +25,11 @@ const empty = (): Db => ({
 function read(): Db {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? { ...empty(), ...JSON.parse(raw) } : empty();
+    if (!raw) return empty();
+    const db = { ...empty(), ...JSON.parse(raw) } as Db;
+    // Older demo data has no icon/colour: give each habit the look its name suggests.
+    db.habits = db.habits.map((h) => (isHabitIcon(h.icon) && isHabitColor(h.color) ? h : { ...h, ...suggestLook(h.name) }));
+    return db;
   } catch {
     return empty();
   }

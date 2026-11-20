@@ -1,4 +1,6 @@
 "use client";
+import { Check, Plus, X } from "lucide-react";
+import { HabitIcon } from "@/components/HabitIcon";
 import { useEffect, useMemo, useState } from "react";
 import { RelaxCard } from "@/components/RelaxCard";
 import { ErrorView, LoadingView } from "@/components/StateViews";
@@ -72,8 +74,8 @@ function Week({ today }: { today: string }) {
     <div className="flex flex-col gap-4">
       <header className="flex items-end justify-between gap-2 px-1">
         <div className="flex flex-col gap-0.5">
-          <span className="text-sm font-semibold text-plum-soft">{rangeTitle(days)}</span>
-          <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">
+          <span className="text-sm text-muted">{rangeTitle(days)}</span>
+          <h1 className="font-display text-[32px] font-medium leading-tight tracking-[-0.035em]">
             {thisWeek ? "Minggu Ini" : monday < today ? "Minggu Lalu" : "Minggu Depan"}
           </h1>
         </div>
@@ -83,16 +85,16 @@ function Week({ today }: { today: string }) {
         </div>
       </header>
       {avg !== null && (
-        <span className="tabular -mt-2 self-start rounded-full bg-mint px-3 py-1.5 text-[13px] font-extrabold text-mint-ink">
+        <span className="tabular -mt-2 self-start rounded-full bg-mint px-3 py-1.5 text-[13px] font-semibold text-mint-ink">
           Rata-rata {avg}
         </span>
       )}
 
-      <div className="grid grid-cols-7 gap-1.5 rounded-panel bg-plum p-3.5">
+      <div className="grid grid-cols-7 gap-[5px]">
         {days.map((d, i) => {
           const on = d === selected;
           const score = view.scores[i];
-          const dot = score === null ? (on ? "bg-butter" : "bg-plum-muted") : score >= 80 ? "bg-lime" : "bg-tangerine-soft";
+          const dot = score === null ? "bg-transparent" : score >= 80 ? "bg-lime" : "bg-tangerine-soft";
           return (
             <button
               key={d}
@@ -100,11 +102,11 @@ function Week({ today }: { today: string }) {
               aria-pressed={on}
               aria-label={`${dayName(d)} ${dayNum(d)} ${monthName(d)}${score === null ? "" : `, skor ${score}`}`}
               onClick={() => setSelected(d)}
-              className={`flex flex-col items-center gap-1.5 rounded-full py-2.5 ${on ? "bg-sun text-plum" : "bg-plum-raised text-on-plum"} ${d === today && !on ? "ring-2 ring-sun/60" : ""}`}
+              className={`press flex h-[84px] flex-col items-center justify-center gap-1 rounded-2xl ${on ? "bg-ink text-butter" : "bg-paper text-ink shadow-card"} ${d === today && !on ? "ring-2 ring-ink" : ""}`}
             >
-              <span className="text-[11px] font-extrabold">{dayShort(d)}</span>
-              <span className="font-display text-lg font-bold leading-none">{dayNum(d)}</span>
-              <span className={`tabular flex h-[26px] w-[26px] items-center justify-center rounded-full text-[10px] font-extrabold text-plum ${dot}`}>
+              <span className="text-xs opacity-80">{dayShort(d)}</span>
+              <span className="tabular font-display text-lg font-semibold leading-none">{dayNum(d)}</span>
+              <span className={`tabular flex h-[18px] min-w-[26px] items-center justify-center rounded-full px-1 text-[11px] font-semibold text-ink ${dot}`}>
                 {score ?? ""}
               </span>
             </button>
@@ -112,24 +114,24 @@ function Week({ today }: { today: string }) {
         })}
       </div>
 
-      <section aria-label={`Jadwal ${selLabel}`} className="flex flex-col gap-2 rounded-panel bg-lilac p-3">
-        <div className="flex items-baseline justify-between px-2 pt-1">
-          <h2 className="font-display text-xl font-bold">
+      <section aria-label={`Jadwal ${selLabel}`} className="flex flex-col gap-2">
+        <div className="flex items-baseline justify-between px-1 pt-1.5">
+          <h2 className="font-display text-xl font-medium">
             {selected === today ? `Hari ini, ${dayName(selected)} ${dayNum(selected)}` : `${dayName(selected)} ${dayNum(selected)}`}
           </h2>
-          {dailyCount > 0 && <span className="text-xs font-bold text-lilac-ink">+ {dailyCount} rutin harian</span>}
+          {dailyCount > 0 && <span className="text-sm text-muted">+ {dailyCount} rutin harian</span>}
         </div>
         {view.items.length === 0 ? (
           <RelaxCard />
         ) : scheduled.length === 0 ? (
-          <p className="px-2 pb-1 text-sm font-semibold text-plum-soft">Cuma rutin harian. Jadwalkan target dari bawah kalau mau.</p>
+          <p className="rounded-row border-[1.5px] border-dashed border-[#D9CDAE] p-4 text-center text-[15px] text-muted">Cuma rutin harian. Jadwalkan target dari bawah kalau mau.</p>
         ) : (
           scheduled.map((i) => <PlanRow key={i.habit.id} item={i} past={isPast} onRemove={() => removePlan(i.habit.id, selected)} />)
         )}
       </section>
 
-      <TargetList title="Target minggu ini" tint="bg-peach" habits={view.weekly} {...targetProps} />
-      <TargetList title="Target bulan ini" tint="bg-mint" habits={view.monthly} {...targetProps} />
+      <TargetList title="Target minggu ini" habits={view.weekly} {...targetProps} />
+      <TargetList title="Target bulan ini" habits={view.monthly} {...targetProps} />
     </div>
   );
 }
@@ -138,35 +140,20 @@ function PlanRow({ item, past, onRemove }: { item: PlanItem; past: boolean; onRe
   const manual = item.source === "manual";
   const source = item.source === "routine" ? "Dari rutinitas" : manual ? "Dijadwalin manual" : "Dikerjain di luar jadwal";
   return (
-    <div className="flex min-h-14 items-center gap-3 rounded-row bg-paper px-3 py-2.5">
-      <span
-        aria-hidden="true"
-        className={`flex h-9 w-9 flex-none items-center justify-center rounded-full ${item.done ? "bg-tangerine" : item.source === "routine" ? "bg-mint" : "bg-peach"}`}
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2350" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-          {item.done ? (
-            <path d="M5 12.5l4.5 4.5L19 7" />
-          ) : item.source === "routine" ? (
-            <path d="M4 12a8 8 0 0 1 14-5l2-2v6h-6l2-2a5 5 0 1 0 1 6" />
-          ) : (
-            <path d="M12 5v14M5 12h14" />
-          )}
-        </svg>
-      </span>
-      <div className="flex flex-1 flex-col">
-        <span className="font-extrabold">{item.habit.name}</span>
-        <span className="text-xs font-semibold text-plum-soft">{past ? (item.done ? "Beres" : "Belum") : source}</span>
+    <div className="flex min-h-[68px] items-center gap-3 rounded-row bg-paper p-2.5 shadow-card">
+      <HabitIcon icon={item.habit.icon} color={item.habit.color} />
+      <div className="flex flex-1 flex-col gap-0.5">
+        <span className={`font-semibold ${item.done ? "text-muted line-through decoration-2" : ""}`}>{item.habit.name}</span>
+        <span className="text-[13px] text-muted">{past ? (item.done ? "Beres" : "Belum") : source}</span>
       </div>
       {manual && !past && (
         <button
           type="button"
           onClick={onRemove}
           aria-label={`Hapus ${item.habit.name} dari jadwal`}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-track text-plum"
+          className="press flex h-11 w-11 items-center justify-center rounded-[14px] text-muted"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
+          <X size={20} aria-hidden="true" />
         </button>
       )}
     </div>
@@ -175,7 +162,6 @@ function PlanRow({ item, past, onRemove }: { item: PlanItem; past: boolean; onRe
 
 function TargetList({
   title,
-  tint,
   habits,
   logs,
   date,
@@ -186,7 +172,6 @@ function TargetList({
   onAdd,
 }: {
   title: string;
-  tint: string;
   habits: Habit[];
   logs: HabitLog[];
   date: string;
@@ -198,21 +183,22 @@ function TargetList({
 }) {
   if (habits.length === 0) return null;
   return (
-    <section className={`flex flex-col gap-2 rounded-panel p-3 ${tint}`}>
-      <h2 className="px-2 pt-1 font-display text-xl font-bold">{title}</h2>
+    <section className="flex flex-col gap-2">
+      <h2 className="px-1 pt-1.5 font-display text-xl font-medium tracking-[-0.02em]">{title}</h2>
       {habits.map((h) => {
         const p = targetProgress(h, date, logs);
         const pct = Math.min(100, (100 * p.done) / p.target);
         const isPlanned = planned.has(h.id);
         return (
-          <div key={h.id} className="flex items-center gap-3 rounded-row bg-paper px-3 py-2.5">
+          <div key={h.id} className="flex min-h-[68px] items-center gap-3 rounded-row bg-paper p-2.5 shadow-card">
+            <HabitIcon icon={h.icon} color={h.color} />
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <span className="font-extrabold">{h.name}</span>
+              <span className="font-semibold">{h.name}</span>
               <div className="flex items-center gap-2.5">
-                <span className="h-2 flex-1 overflow-hidden rounded-full bg-track">
-                  <span className={`block h-2 rounded-full ${p.reached ? "bg-lime" : "bg-tangerine"}`} style={{ width: `${pct}%` }} />
+                <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-track">
+                  <span className={`block h-1.5 rounded-full ${p.reached ? "bg-leaf" : "bg-tangerine"}`} style={{ width: `${pct}%` }} />
                 </span>
-                <span className={`tabular whitespace-nowrap text-xs font-extrabold ${p.reached ? "text-mint-ink" : "text-plum-soft"}`}>
+                <span className={`whitespace-nowrap text-[13px] ${p.reached ? "font-semibold text-mint-ink" : "text-muted"}`}>
                   {fmtNum(p.done)} dari {fmtNum(p.target)}
                   {h.unit ? ` ${h.unit}` : ""}
                 </span>
@@ -223,9 +209,10 @@ function TargetList({
               onClick={() => onAdd(h)}
               disabled={disabled || isPlanned}
               aria-label={`Jadwalkan ${h.name} ke ${dayLongLabel}`}
-              className="h-11 flex-none whitespace-nowrap rounded-full bg-butter px-3.5 text-xs font-extrabold text-plum ring-2 ring-track disabled:opacity-45"
+              className={`press flex h-11 flex-none items-center gap-1 whitespace-nowrap rounded-[14px] px-3 text-sm font-semibold ${isPlanned ? "bg-mint text-mint-ink" : "border-[1.5px] border-line bg-paper text-ink disabled:opacity-40"}`}
             >
-              {isPlanned ? "Terjadwal" : `+ ${dayShortLabel}`}
+              {isPlanned ? <Check size={16} strokeWidth={2.6} aria-hidden="true" /> : <Plus size={16} strokeWidth={2.4} aria-hidden="true" />}
+              {isPlanned ? "Terjadwal" : dayShortLabel}
             </button>
           </div>
         );
@@ -240,7 +227,7 @@ function NavButton({ label, dir, onClick }: { label: string; dir: "left" | "righ
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-plum ring-2 ring-track"
+      className="press flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-line bg-paper text-ink"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />

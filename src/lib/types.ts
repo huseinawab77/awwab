@@ -1,3 +1,5 @@
+import type { HabitColor, HabitIcon } from "./habitIcons";
+
 export type Period = "daily" | "weekly" | "monthly";
 export type Kind = "check" | "qty";
 
@@ -15,6 +17,9 @@ export interface Habit {
   periodTarget: number | null;
   /** weekly/monthly only: ISO weekdays (Mon=1 … Sun=7) that plan it automatically */
   routineDays: number[];
+  /** Lucide icon id and chip colour, picked in Atur */
+  icon: HabitIcon;
+  color: HabitColor;
   sort: number;
   startOn: string;
   archivedOn: string | null;

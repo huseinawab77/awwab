@@ -3,19 +3,22 @@ import { freshStart } from "./helpers";
 
 const score = (page: Page) => page.getByTestId("score");
 
-test("starts at 0 with a sleepy cat and reaches 100 when everything is done", async ({ page }) => {
+test("starts at 0 with a waving cat and reaches 100 when everything is done", async ({ page }) => {
   await freshStart(page);
   await expect(page.getByRole("heading", { name: "Halo, Awab" })).toBeVisible();
   await expect(score(page)).toHaveText("0");
-  await expect(page.getByAltText("Kucing AWWAB mengantuk")).toBeVisible();
+  await expect(page.getByRole("img", { name: "Kucing AWWAB melambai, siap mulai hari" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Tandai Gym beres" })).toBeVisible();
 
   const unchecked = page.getByRole("button", { name: /^Tandai .* beres$/ });
   while ((await unchecked.count()) > 0) await unchecked.first().click();
+  // Quantities are finished with + (Protein 120 g in steps of 20, Langkah 6.000 in steps of 1.000).
+  for (let k = 0; k < 6; k++) await page.getByRole("button", { name: "Tambah Protein" }).click();
+  for (let k = 0; k < 6; k++) await page.getByRole("button", { name: "Tambah Langkah" }).click();
 
   await expect(score(page)).toHaveText("100");
-  await expect(page.getByText("Semua beres hari ini. Mantap.")).toBeVisible();
-  await expect(page.getByAltText("Kucing AWWAB berbinar")).toBeVisible();
+  await expect(page.getByText("Semua beres hari ini. Mantap!")).toBeVisible();
+  await expect(page.getByRole("img", { name: "Kucing AWWAB melompat kegirangan, mata berbinar" })).toBeVisible();
 });
 
 test("typed values are validated and overshoot is shown", async ({ page }) => {

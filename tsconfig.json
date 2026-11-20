@@ -31,10 +31,11 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    ".next-demo/types/**/*.ts",
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "vitest.setup.ts",
-    ".next-demo/types/**/*.ts"
+    ".next-build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

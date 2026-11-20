@@ -14,7 +14,7 @@ import type { Period } from "@/lib/types";
 
 const GROUPS: { period: Period; title: string; tint: string }[] = [
   { period: "daily", title: "Harian", tint: "bg-mint" },
-  { period: "weekly", title: "Mingguan", tint: "bg-lilac" },
+  { period: "weekly", title: "Mingguan", tint: "bg-sky" },
   { period: "monthly", title: "Bulanan", tint: "bg-peach" },
 ];
 
@@ -62,15 +62,15 @@ export default function MulaiPage() {
       <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-6 px-6 text-center">
         <Cat score={null} variant="body" size={170} />
         <div className="flex flex-col gap-2">
-          <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">Siap, {count} kebiasaan.</h1>
-          <p className="font-semibold text-plum-soft">
+          <h1 className="font-display text-[32px] font-medium leading-tight tracking-tight">Siap, {count} kebiasaan.</h1>
+          <p className="font-semibold text-muted">
             Tiap hari skornya dihitung dari yang direncanain hari itu. Beres semua, skornya 100.
           </p>
         </div>
         <AccentButton className="w-full" onClick={start} disabled={saving}>
           {saving ? "Menyiapkan…" : "Mulai hari ini"}
         </AccentButton>
-        <button type="button" onClick={() => setStep(1)} className="py-2 text-sm font-bold text-lilac-ink">
+        <button type="button" onClick={() => setStep(1)} className="py-2 text-sm font-bold text-sky-ink">
           Ubah pilihan
         </button>
       </main>
@@ -84,15 +84,15 @@ export default function MulaiPage() {
   return (
     <main className="mx-auto max-w-md px-4 pb-32 pt-6">
       <header className="mb-5 flex flex-col gap-1 px-1">
-        <p className="text-sm font-semibold text-plum-soft">Langkah 1 dari 2</p>
-        <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">Pilih kebiasaanmu</h1>
-        <p className="font-semibold text-plum-soft">Centang yang mau dilacak. Ketuk namanya buat ubah target.</p>
+        <p className="text-sm font-semibold text-muted">Langkah 1 dari 2</p>
+        <h1 className="font-display text-[32px] font-medium leading-tight tracking-tight">Pilih kebiasaanmu</h1>
+        <p className="font-semibold text-muted">Centang yang mau dilacak. Ketuk namanya buat ubah target.</p>
       </header>
 
       <div className="flex flex-col gap-4">
         {GROUPS.map((g) => (
           <section key={g.period} className={`flex flex-col gap-2 rounded-panel p-3 ${g.tint}`} aria-labelledby={`g-${g.period}`}>
-            <h2 id={`g-${g.period}`} className="px-2 pt-1 font-display text-xl font-bold">
+            <h2 id={`g-${g.period}`} className="px-2 pt-1 font-display text-xl font-medium">
               {g.title}
             </h2>
             {list.map((h, i) =>
@@ -103,17 +103,17 @@ export default function MulaiPage() {
                     aria-pressed={h.selected}
                     aria-label={`${h.selected ? "Batal pilih" : "Pilih"} ${h.name}`}
                     onClick={() => setList((l) => l.map((x, j) => (j === i ? { ...x, selected: !x.selected } : x)))}
-                    className={`flex h-11 w-11 flex-none items-center justify-center rounded-full ${h.selected ? "bg-tangerine" : "border-[2.5px] border-plum bg-paper"}`}
+                    className={`flex h-11 w-11 flex-none items-center justify-center rounded-full ${h.selected ? "bg-tangerine" : "border-[2.5px] border-ink bg-paper"}`}
                   >
                     {h.selected && (
                       <svg className="stamp" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-                        <path d="M4 10.5 L8.5 15 L16 6" stroke="#2B2350" strokeWidth="3.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M4 10.5 L8.5 15 L16 6" stroke="#1F2A3D" strokeWidth="3.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     )}
                   </button>
                   <button type="button" onClick={() => setEditing(i)} className="flex min-h-11 flex-1 flex-col items-start text-left">
-                    <span className={`text-base font-extrabold ${h.selected ? "text-plum" : "text-plum-soft"}`}>{h.name}</span>
-                    <span className="text-xs font-semibold text-plum-soft">
+                    <span className={`text-base font-semibold ${h.selected ? "text-ink" : "text-muted"}`}>{h.name}</span>
+                    <span className="text-xs font-semibold text-muted">
                       {targetText(asHabit(h))}
                       {h.routineDays.length > 0 && `, rutin ${routineText(h.routineDays)}`}
                     </span>
@@ -177,7 +177,7 @@ export default function MulaiPage() {
               </>
             )}
             {current.kind === "check" && current.period === "daily" && (
-              <p className="font-semibold text-plum-soft">Kebiasaan ini cukup dicentang tiap hari.</p>
+              <p className="font-semibold text-muted">Kebiasaan ini cukup dicentang tiap hari.</p>
             )}
             <PrimaryButton onClick={() => setEditing(null)}>Selesai</PrimaryButton>
           </div>

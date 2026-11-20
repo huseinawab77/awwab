@@ -5,7 +5,7 @@ import type { NewHabit } from "../types";
 
 const gymDef: NewHabit = {
   name: "Gym", kind: "check", period: "weekly", unit: "kali", dayTarget: null, step: null,
-  periodTarget: 3, routineDays: [1, 3, 5], sort: 0, startOn: "2026-11-16", archivedOn: null,
+  periodTarget: 3, routineDays: [1, 3, 5], icon: "dumbbell", color: "peach", sort: 0, startOn: "2026-11-16", archivedOn: null,
 };
 
 let store: DataStore;

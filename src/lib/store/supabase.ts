@@ -1,5 +1,6 @@
 // Supabase-backed store. Rows are scoped by RLS; user_id defaults to auth.uid() on insert.
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { FALLBACK_LOOK, isHabitColor, isHabitIcon } from "../habitIcons";
 import type { Habit, HabitLog, NewHabit, PlanEntry, Settings } from "../types";
 import type { DataStore, ExportDump } from "./types";
 
@@ -13,6 +14,8 @@ type HabitRow = {
   step: number | string | null;
   period_target: number | string | null;
   routine_days: number[] | null;
+  icon: string;
+  color: string;
   sort: number;
   start_on: string;
   archived_on: string | null;
@@ -33,6 +36,8 @@ const toHabit = (r: HabitRow): Habit => ({
   step: num(r.step),
   periodTarget: num(r.period_target),
   routineDays: r.routine_days ?? [],
+  icon: isHabitIcon(r.icon) ? r.icon : FALLBACK_LOOK.icon,
+  color: isHabitColor(r.color) ? r.color : FALLBACK_LOOK.color,
   sort: r.sort,
   startOn: r.start_on,
   archivedOn: r.archived_on,
@@ -48,6 +53,8 @@ const toRow = (h: Partial<NewHabit>) => {
   if (h.step !== undefined) row.step = h.step;
   if (h.periodTarget !== undefined) row.period_target = h.periodTarget;
   if (h.routineDays !== undefined) row.routine_days = h.routineDays;
+  if (h.icon !== undefined) row.icon = h.icon;
+  if (h.color !== undefined) row.color = h.color;
   if (h.sort !== undefined) row.sort = h.sort;
   if (h.startOn !== undefined) row.start_on = h.startOn;
   if (h.archivedOn !== undefined) row.archived_on = h.archivedOn;
@@ -82,7 +89,7 @@ export async function fetchAll<T>(make: () => Ranged<T>): Promise<T[]> {
   }
 }
 
-const HABIT_COLS = "id,name,kind,period,unit,day_target,step,period_target,routine_days,sort,start_on,archived_on";
+const HABIT_COLS = "id,name,kind,period,unit,day_target,step,period_target,routine_days,icon,color,sort,start_on,archived_on";
 
 export function createSupabaseStore(sb: SupabaseClient): DataStore {
   return {

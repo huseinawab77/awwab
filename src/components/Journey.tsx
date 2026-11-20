@@ -18,7 +18,7 @@ const tone = (s: number | null): Tone => (s === null ? "empty" : s >= 80 ? "lime
 const FILL: Record<Tone, string> = {
   lime: "bg-lime",
   soft: "bg-tangerine-soft",
-  empty: "bg-paper border-2 border-dashed border-on-plum",
+  empty: "bg-paper border-2 border-dashed border-on-ink",
 };
 
 export function Journey({ days, today }: { days: { date: string; score: number | null }[]; today: string }) {
@@ -26,9 +26,9 @@ export function Journey({ days, today }: { days: { date: string; score: number |
   return (
     <div role="img" aria-label={label} className="relative mx-auto h-[220px] w-[294px] rounded-[22px] bg-butter">
       <svg width="294" height="220" viewBox="0 0 294 220" aria-hidden="true" className="absolute inset-0">
-        <path d={PATH} stroke="#E7E1FF" strokeWidth="22" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={PATH} stroke="#DCE9F7" strokeWidth="22" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         <path d={PATH} stroke="#FFFFFF" strokeWidth="3" strokeDasharray="2 9" fill="none" strokeLinecap="round" />
-        <rect x="36" y="168" width="4" height="34" rx="2" fill="#2B2350" />
+        <rect x="36" y="168" width="4" height="34" rx="2" fill="#1F2A3D" />
         <path d="M40 170 L62 177 L40 184 Z" fill="#FF7A2F" />
         <circle cx="236" cy="186" r="10" fill="#B8E04A" />
         <circle cx="254" cy="192" r="7" fill="#B8E04A" />
@@ -46,11 +46,11 @@ export function Journey({ days, today }: { days: { date: string; score: number |
             style={{ left: POS[i][0] - 20, top: POS[i][1] - 17 }}
           >
             <span
-              className={`tabular flex h-[34px] w-[34px] items-center justify-center rounded-full text-[11px] font-extrabold text-plum ${FILL[t]} ${isToday ? "ring-[3px] ring-plum" : ""}`}
+              className={`tabular flex h-[34px] w-[34px] items-center justify-center rounded-full text-[11px] font-semibold text-ink ${FILL[t]} ${isToday ? "ring-[3px] ring-ink" : ""}`}
             >
               {d.score ?? ""}
             </span>
-            <span className="rounded-md bg-butter px-1 text-[11px] font-extrabold text-plum-soft">{SHORT[i]}</span>
+            <span className="rounded-md bg-butter px-1 text-[11px] font-semibold text-muted">{SHORT[i]}</span>
           </div>
         );
       })}

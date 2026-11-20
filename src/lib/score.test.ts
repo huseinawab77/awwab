@@ -24,6 +24,8 @@ function habit(p: Partial<Habit> & Pick<Habit, "id">): Habit {
     step: null,
     periodTarget: null,
     routineDays: [],
+    icon: "sprout",
+    color: "peach",
     sort: n++,
     startOn: "2026-11-01",
     archivedOn: null,

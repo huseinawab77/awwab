@@ -1,33 +1,38 @@
 @import "tailwindcss";
 
-/* Tokens from DESIGN.md (v3). Single light theme by design. */
+/* Tokens from DESIGN.md (v4). Single light theme by design. */
 @theme {
   --color-butter: #fff4d6;
   --color-paper: #ffffff;
-  --color-plum: #2b2350;
-  --color-plum-soft: #5e5680;
-  --color-plum-raised: #3a3163;
-  --color-plum-muted: #4a4170;
-  --color-on-plum: #c9c2e6;
+  --color-ink: #1f2a3d;
+  --color-muted: #5b6577;
+  --color-ink-raised: #2c3647;
+  --color-ink-muted: #3a4558;
+  --color-on-ink: #c9ced8;
+  --color-line: #e8dfc6;
   --color-tangerine: #ff7a2f;
   --color-tangerine-soft: #ffb98f;
   --color-tangerine-ink: #9e3f0c;
   --color-lime: #b8e04a;
+  --color-leaf: #7fb82e;
   --color-sun: #ffe59a;
-  --color-lilac: #e7e1ff;
-  --color-lilac-ink: #6a3fc9;
-  --color-mint: #d6f2e1;
-  --color-mint-ink: #3d6b1f;
-  --color-peach: #ffdcc7;
+  --color-sky: #dce9f7;
+  --color-sky-ink: #1f5590;
+  --color-mint: #d9f0e1;
+  --color-mint-ink: #2e6a40;
+  --color-peach: #ffe1cc;
+  --color-rose: #fadde3;
+  --color-rose-ink: #9c2f4a;
   --color-track: #f1ebdd;
 
-  --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --font-display: var(--font-bricolage), var(--font-jakarta), system-ui, sans-serif;
+  --font-sans: var(--font-schibsted), system-ui, sans-serif;
+  --font-display: var(--font-schibsted), system-ui, sans-serif;
 
-  --radius-panel: 28px;
+  --radius-panel: 24px;
   --radius-row: 20px;
 
-  --shadow-float: 0 10px 24px rgba(43, 35, 80, 0.22);
+  --shadow-float: 0 10px 24px rgba(31, 42, 61, 0.25);
+  --shadow-card: 0 1px 2px rgba(31, 42, 61, 0.06), 0 6px 16px rgba(31, 42, 61, 0.05);
 }
 
 html {
@@ -37,12 +42,12 @@ html {
 
 body {
   background: var(--color-butter);
-  color: var(--color-plum);
+  color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-tangerine-ink);
+  outline: 3px solid var(--color-ink);
   outline-offset: 2px;
 }
 
@@ -62,6 +67,14 @@ body {
   to { transform: translateY(0); opacity: 1; }
 }
 .sheet-up { animation: sheet-up 180ms ease-out; }
+
+/* Press feedback (Emil: buttons answer the finger), check pop, confetti at 100. */
+.press { transition: transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 160ms ease-out; }
+.press:active:not(:disabled) { transform: scale(0.96); }
+@keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.pop { animation: pop 200ms cubic-bezier(0.2, 0.9, 0.3, 1.3); }
+@keyframes confetti { from { transform: translateY(0) rotate(0); opacity: 1; } to { transform: translateY(-120px) rotate(220deg); opacity: 0; } }
+.confetti { position: absolute; bottom: 28px; width: 8px; height: 12px; border-radius: 2px; animation: confetti 1100ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards; }
 
 /* The cat mascot (src/components/Mascot.tsx): SVG parts rotate/scale around points in the 200x220 viewBox. */
 .mascot { overflow: visible; }
@@ -88,6 +101,9 @@ body {
 @keyframes mascot-twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.6); opacity: 0.5; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .stamp, .sheet-up { animation: none; }
+  .stamp, .sheet-up, .pop { animation: none; }
+  .press { transition: none; }
+  .press:active:not(:disabled) { transform: none; }
+  .confetti { display: none; }
   .mascot, .mascot * { animation: none !important; }
 }

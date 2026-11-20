@@ -13,14 +13,20 @@ test("adds a new daily quantity habit", async ({ page }) => {
   await page.getByRole("button", { name: "Simpan" }).click();
   await expect(page.getByText("Nama wajib diisi")).toBeVisible();
   await page.getByLabel("Nama").fill("Minum air");
-  await page.getByRole("radio", { name: "Angka" }).click();
+  await page.getByRole("radio", { name: "Angka", exact: true }).click();
   await page.getByLabel("Satuan").fill("gelas");
   await page.getByLabel("Target per hari").fill("8");
   await page.getByLabel("Tambah per ketukan").fill("1");
+  // Typing the name suggests a look; picking one overrides it.
+  await expect(page.getByRole("radio", { name: "Ikon Air" })).toBeChecked();
+  await page.getByRole("radio", { name: "Ikon Apel" }).click();
+  await page.getByRole("radio", { name: "Warna Toska" }).click();
   await page.getByRole("button", { name: "Simpan" }).click();
   await expect(page).toHaveURL(/\/atur$/);
   await page.getByRole("link", { name: "Hari Ini" }).click();
-  await expect(page.getByRole("button", { name: "Tambah Minum air" })).toBeVisible();
+  const row = page.locator("[data-habit='Minum air']");
+  await expect(row.getByRole("button", { name: "Tambah Minum air" })).toBeVisible();
+  await expect(row.locator("[data-icon='apple']")).toBeVisible();
 });
 
 test("changing Gym's routine days moves it in the week", async ({ page }) => {

@@ -21,21 +21,21 @@ export function LineChart({ points }: { points: { label: string; value: number |
       {[0, 50, 100].map((v) => (
         <line key={v} x1={16} x2={W - 16} y1={y(v)} y2={y(v)} stroke="#F1EBDD" strokeWidth="1" />
       ))}
-      {area && <path d={area} fill="#FFDCC7" />}
+      {area && <path d={area} fill="#FFE1CC" />}
       {real.length > 1 && <path d={line} stroke="#FF7A2F" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />}
       {real.map((p, i) => {
         const last = i === real.length - 1;
         return (
           <g key={p.label}>
-            <circle cx={p.x} cy={y(p.value)} r={last ? 7 : 5} fill={last ? "#2B2350" : "#FFFFFF"} stroke={last ? "none" : "#FF7A2F"} strokeWidth="3" />
-            <text x={p.x} y={y(p.value) - 12} textAnchor="middle" fill="#2B2350" fontSize="12" fontWeight="800">
+            <circle cx={p.x} cy={y(p.value)} r={last ? 7 : 5} fill={last ? "#1F2A3D" : "#FFFFFF"} stroke={last ? "none" : "#FF7A2F"} strokeWidth="3" />
+            <text x={p.x} y={y(p.value) - 12} textAnchor="middle" fill="#1F2A3D" fontSize="12" fontWeight="800">
               {p.value}
             </text>
           </g>
         );
       })}
       {points.map((p, i) => (
-        <text key={p.label} x={xs[i]} y={H - 8} textAnchor="middle" fill="#5E5680" fontSize="11" fontWeight="700">
+        <text key={p.label} x={xs[i]} y={H - 8} textAnchor="middle" fill="#5B6577" fontSize="11" fontWeight="700">
           {p.label}
         </text>
       ))}

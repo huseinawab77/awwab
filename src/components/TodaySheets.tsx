@@ -52,9 +52,9 @@ export function ValueSheet({
               onChange={(e) => setText(e.target.value)}
               aria-invalid={text !== "" && !valid}
               aria-describedby="value-help"
-              className="tabular h-16 rounded-2xl border-2 border-track bg-paper px-4 font-display text-3xl font-extrabold focus:border-plum focus:outline-none"
+              className="tabular h-16 rounded-2xl border-2 border-track bg-paper px-4 font-display text-3xl font-medium focus:border-ink focus:outline-none"
             />
-            <p id="value-help" className={`text-xs font-semibold ${text !== "" && !valid ? "text-tangerine-ink" : "text-plum-soft"}`}>
+            <p id="value-help" className={`text-xs font-semibold ${text !== "" && !valid ? "text-tangerine-ink" : "text-muted"}`}>
               {text !== "" && !valid ? "Isi angka 0 atau lebih." : `Target ${targetText(habit).toLowerCase()}.`}
             </p>
           </div>
@@ -83,7 +83,7 @@ export function AddToTodaySheet({
     <Sheet open={open} onClose={onClose} title="Tambah ke jadwal">
       <div className="flex flex-col gap-2 pb-2">
         {candidates.length === 0 ? (
-          <p className="rounded-row bg-paper p-4 font-semibold text-plum-soft">
+          <p className="rounded-row bg-paper p-4 font-semibold text-muted">
             Semua kebiasaan mingguan dan bulanan sudah ada di jadwal ini.
           </p>
         ) : (
@@ -97,8 +97,8 @@ export function AddToTodaySheet({
               }}
               className="flex min-h-14 flex-col items-start justify-center rounded-row bg-paper px-4 py-2 text-left"
             >
-              <span className="font-extrabold">{h.name}</span>
-              <span className="text-xs font-semibold text-plum-soft">{targetText(h)}</span>
+              <span className="font-semibold">{h.name}</span>
+              <span className="text-xs font-semibold text-muted">{targetText(h)}</span>
             </button>
           ))
         )}

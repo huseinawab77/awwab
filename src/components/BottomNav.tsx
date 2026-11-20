@@ -1,58 +1,35 @@
 "use client";
+import { CalendarDays, ChartColumn, CircleCheck, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TABS = [
-  { href: "/hari-ini", label: "Hari Ini", icon: <path d="M4 12.5l4.5 4.5L20 6" /> },
-  {
-    href: "/minggu",
-    label: "Minggu",
-    icon: (
-      <>
-        <rect x="3" y="5" width="18" height="16" rx="4" />
-        <path d="M3 10h18M8 3v4M16 3v4" />
-      </>
-    ),
-  },
-  { href: "/rapor", label: "Rapor", icon: <path d="M5 20V11M12 20V5M19 20v-6" /> },
-  {
-    href: "/atur",
-    label: "Atur",
-    icon: (
-      <>
-        <path d="M4 7h10M18 7h2M4 17h4M12 17h8" />
-        <circle cx="16" cy="7" r="2.2" />
-        <circle cx="10" cy="17" r="2.2" />
-      </>
-    ),
-  },
+  { href: "/hari-ini", label: "Hari Ini", Icon: CircleCheck },
+  { href: "/minggu", label: "Minggu", Icon: CalendarDays },
+  { href: "/rapor", label: "Rapor", Icon: ChartColumn },
+  { href: "/atur", label: "Atur", Icon: SlidersHorizontal },
 ];
 
-/** Floating plum tab bar; the active tab grows into a labeled sun pill. */
+/** Floating dark tab bar: every tab shows its icon and label; the active one sits on a sun pill. */
 export function BottomNav() {
   const path = usePathname();
   const active = TABS.findIndex((t) => path === t.href || path.startsWith(`${t.href}/`));
-  const columns = TABS.map((_, i) => (i === active ? "1.6fr" : "1fr")).join(" ");
   return (
     <nav
       aria-label="Navigasi utama"
-      className="fixed inset-x-4 bottom-[max(14px,env(safe-area-inset-bottom))] z-40 mx-auto grid h-[68px] max-w-[398px] items-center rounded-full bg-plum px-2 shadow-float"
-      style={{ gridTemplateColumns: columns }}
+      className="fixed inset-x-3 bottom-[max(12px,env(safe-area-inset-bottom))] z-40 mx-auto grid h-[68px] max-w-[406px] grid-cols-4 items-center rounded-[24px] bg-ink px-1.5 shadow-float"
     >
-      {TABS.map((t, i) => {
+      {TABS.map(({ href, label, Icon }, i) => {
         const on = i === active;
         return (
           <Link
-            key={t.href}
-            href={t.href}
+            key={href}
+            href={href}
             aria-current={on ? "page" : undefined}
-            aria-label={on ? undefined : t.label}
-            className={`flex h-[50px] items-center justify-center gap-1.5 rounded-full text-sm font-extrabold ${on ? "bg-sun text-plum" : "text-on-plum hover:text-paper"}`}
+            className={`mx-0.5 flex h-14 flex-col items-center justify-center gap-[3px] rounded-[18px] text-xs transition-colors ${on ? "bg-sun font-semibold text-ink" : "text-on-ink hover:text-paper"}`}
           >
-            <svg width={on ? 20 : 24} height={on ? 20 : 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              {t.icon}
-            </svg>
-            {on && t.label}
+            <Icon size={20} strokeWidth={2.2} aria-hidden="true" />
+            {label}
           </Link>
         );
       })}

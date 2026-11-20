@@ -37,8 +37,8 @@ export default function HabitEditorPage() {
   if (!isNew && !habit) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-panel bg-peach p-6 text-center">
-        <p className="font-display text-xl font-bold">Kebiasaan ini nggak ketemu</p>
-        <Link href="/atur" className="font-bold text-lilac-ink underline">
+        <p className="font-display text-xl font-medium">Kebiasaan ini nggak ketemu</p>
+        <Link href="/atur" className="font-bold text-sky-ink underline">
           Kembali ke Atur
         </Link>
       </div>
@@ -81,13 +81,13 @@ export default function HabitEditorPage() {
         <Link
           href="/atur"
           aria-label="Kembali ke Atur"
-          className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-paper text-plum ring-2 ring-track"
+          className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-paper text-ink border-[1.5px] border-line"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </Link>
-        <h1 className="font-display text-[28px] font-extrabold leading-tight tracking-tight">
+        <h1 className="font-display text-[28px] font-medium leading-tight tracking-tight">
           {isNew ? "Kebiasaan baru" : "Ubah kebiasaan"}
         </h1>
       </header>
@@ -96,6 +96,7 @@ export default function HabitEditorPage() {
         initial={habit ? draftFrom(habit) : emptyDraft()}
         saving={saving}
         onSave={save}
+        suggest={isNew}
         footer={
           habit &&
           habit.archivedOn === null && (
@@ -108,7 +109,7 @@ export default function HabitEditorPage() {
 
       {habit && (
         <Sheet open={confirmArchive} onClose={() => setConfirmArchive(false)} title={`Arsipkan ${habit.name}?`}>
-          <p className="font-semibold text-plum-soft">
+          <p className="font-semibold text-muted">
             Mulai hari ini kebiasaan ini nggak muncul lagi di rencana. Riwayatnya tetap tersimpan, dan kamu bisa memulihkannya kapan saja.
           </p>
           <div className="mt-5 flex flex-col gap-2">

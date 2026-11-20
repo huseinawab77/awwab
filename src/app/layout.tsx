@@ -3,18 +3,11 @@ import localFont from "next/font/local";
 import { Toaster } from "@/components/Toast";
 import "./globals.css";
 
-// Self-hosted variable fonts (OFL), so builds never depend on Google Fonts being reachable.
-const jakarta = localFont({
-  src: "../fonts/plus-jakarta-sans-latin-wght-normal.woff2",
-  variable: "--font-jakarta",
-  weight: "200 800",
-  display: "swap",
-});
-
-const bricolage = localFont({
-  src: "../fonts/bricolage-grotesque-latin-wght-normal.woff2",
-  variable: "--font-bricolage",
-  weight: "200 800",
+// Self-hosted variable font (OFL), so builds never depend on Google Fonts being reachable.
+const schibsted = localFont({
+  src: "../fonts/schibsted-grotesk-latin-wght-normal.woff2",
+  variable: "--font-schibsted",
+  weight: "400 900",
   display: "swap",
 });
 
@@ -25,14 +18,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2B2350",
+  themeColor: "#1F2A3D",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={`${jakarta.variable} ${bricolage.variable}`}>
+    <html lang="id" className={`${schibsted.variable}`}>
       <body className="antialiased">
         {children}
         <Toaster />

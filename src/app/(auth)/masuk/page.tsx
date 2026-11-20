@@ -11,10 +11,10 @@ export default function MasukPage() {
   const [mode, setMode] = useState<Mode>("masuk");
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-center font-display text-[28px] font-extrabold leading-tight tracking-tight">
+      <h1 className="text-center font-display text-[28px] font-medium leading-tight tracking-tight">
         {mode === "masuk" ? "Masuk ke AWWAB" : "Bikin akun AWWAB"}
       </h1>
-      <div role="tablist" aria-label="Pilih masuk atau daftar" className="grid grid-cols-2 gap-1 rounded-full bg-plum p-1">
+      <div role="tablist" aria-label="Pilih masuk atau daftar" className="grid grid-cols-2 gap-1 rounded-full bg-ink p-1">
         {(["masuk", "daftar"] as const).map((m) => (
           <button
             key={m}
@@ -22,7 +22,7 @@ export default function MasukPage() {
             type="button"
             aria-selected={mode === m}
             onClick={() => setMode(m)}
-            className={`h-11 rounded-full text-sm font-extrabold ${mode === m ? "bg-sun text-plum" : "text-on-plum"}`}
+            className={`h-11 rounded-full text-sm font-semibold ${mode === m ? "bg-sun text-ink" : "text-on-ink"}`}
           >
             {m === "masuk" ? "Masuk" : "Daftar"}
           </button>
@@ -43,7 +43,7 @@ function SignInForm() {
       <PrimaryButton type="submit" disabled={pending}>
         {pending ? "Masuk…" : "Masuk"}
       </PrimaryButton>
-      <Link href="/lupa-password" className="self-center py-2 text-sm font-bold text-lilac-ink underline-offset-4 hover:underline">
+      <Link href="/lupa-password" className="self-center py-2 text-sm font-bold text-sky-ink underline-offset-4 hover:underline">
         Lupa password?
       </Link>
     </form>

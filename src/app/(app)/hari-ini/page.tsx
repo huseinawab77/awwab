@@ -1,4 +1,5 @@
 "use client";
+import { Plus, Timer } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { HabitRow } from "@/components/HabitRow";
 import { RelaxCard } from "@/components/RelaxCard";
@@ -91,12 +92,9 @@ function Today({ today }: { today: string }) {
             type="button"
             onClick={() => setTiming(i)}
             aria-label={`Timer ${i.habit.name}`}
-            className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-lilac text-lilac-ink"
+            className="press flex h-11 w-11 flex-none items-center justify-center rounded-[14px] bg-sky text-sky-ink"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
-              <circle cx="12" cy="13" r="8" />
-              <path d="M12 9v4l2.5 2M9 2h6" />
-            </svg>
+            <Timer size={20} aria-hidden="true" />
           </button>
         ) : undefined
       }
@@ -104,11 +102,11 @@ function Today({ today }: { today: string }) {
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3.5">
       <header className="flex items-end justify-between gap-2 px-1">
         <div className="flex flex-col gap-0.5">
-          <span className="text-sm font-semibold text-plum-soft">{formatLong(date)}</span>
-          <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">
+          <span className="text-sm text-muted">{formatLong(date)}</span>
+          <h1 className="font-display text-[32px] font-medium leading-tight tracking-[-0.035em]">
             {name ? `Halo, ${name}` : "Halo"}
           </h1>
         </div>
@@ -118,7 +116,7 @@ function Today({ today }: { today: string }) {
             aria-label="Hari sebelumnya"
             disabled={date <= minDate}
             onClick={() => setDate(addDays(date, -1))}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-plum ring-2 ring-track disabled:opacity-40"
+            className="press flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-line bg-paper text-ink disabled:opacity-35"
           >
             <Chevron dir="left" />
           </button>
@@ -127,7 +125,7 @@ function Today({ today }: { today: string }) {
             aria-label="Hari berikutnya"
             disabled={isToday}
             onClick={() => setDate(addDays(date, 1))}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-plum ring-2 ring-track disabled:opacity-40"
+            className="press flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-line bg-paper text-ink disabled:opacity-35"
           >
             <Chevron dir="right" />
           </button>
@@ -138,7 +136,7 @@ function Today({ today }: { today: string }) {
         <button
           type="button"
           onClick={() => setDate(today)}
-          className="self-start rounded-full bg-sun px-4 py-2.5 text-sm font-extrabold text-plum"
+          className="self-start rounded-full bg-sun px-4 py-2.5 text-sm font-semibold text-ink"
         >
           Kembali ke hari ini
         </button>
@@ -155,41 +153,39 @@ function Today({ today }: { today: string }) {
 
       {view.items.length === 0 && <RelaxCard />}
 
-      <section aria-labelledby="jadwal" className="flex flex-col gap-2 rounded-panel bg-lilac p-3">
-        <div className="flex items-baseline justify-between px-2 pt-1">
-          <h2 id="jadwal" className="font-display text-xl font-bold">
+      <section aria-labelledby="jadwal" className="flex flex-col gap-2">
+        <div className="flex items-baseline justify-between px-1 pt-1.5">
+          <h2 id="jadwal" className="font-display text-xl font-medium tracking-[-0.02em]">
             {isToday ? "Jadwal hari ini" : `Jadwal ${formatShort(date)}`}
           </h2>
           {scheduled.length > 0 && (
-            <span className="tabular text-[13px] font-bold text-lilac-ink">
+            <span className="tabular text-sm text-muted">
               {scheduled.filter((i) => i.done).length} dari {scheduled.length}
             </span>
           )}
         </div>
         {scheduled.map(row)}
         {scheduled.length === 0 && (
-          <p className="px-2 pb-1 text-sm font-semibold text-plum-soft">Belum ada kebiasaan mingguan atau bulanan di sini.</p>
+          <p className="px-1 text-sm text-muted">Belum ada kebiasaan mingguan atau bulanan di sini.</p>
         )}
         <button
           type="button"
           onClick={() => setAdding(true)}
           aria-label={isToday ? "Tambah ke hari ini" : `Tambah ke ${formatShort(date)}`}
-          className="flex min-h-12 items-center justify-center gap-2 rounded-row border-2 border-dashed border-lilac-ink/40 text-sm font-extrabold text-lilac-ink"
+          className="press flex min-h-12 items-center justify-center gap-1.5 rounded-2xl border-[1.5px] border-dashed border-[#D9CDAE] text-[15px] font-medium text-ink"
         >
-          <span aria-hidden="true" className="text-lg leading-none">
-            +
-          </span>
+          <Plus size={18} aria-hidden="true" />
           {isToday ? "Tambah ke hari ini" : `Tambah ke ${formatShort(date)}`}
         </button>
       </section>
 
       {daily.length > 0 && (
-        <section aria-labelledby="harian" className="flex flex-col gap-2 rounded-panel bg-mint p-3">
-          <div className="flex items-baseline justify-between px-2 pt-1">
-            <h2 id="harian" className="font-display text-xl font-bold">
+        <section aria-labelledby="harian" className="flex flex-col gap-2">
+          <div className="flex items-baseline justify-between px-1 pt-1.5">
+            <h2 id="harian" className="font-display text-xl font-medium tracking-[-0.02em]">
               Rutin harian
             </h2>
-            <span className="tabular text-[13px] font-bold text-mint-ink">
+            <span className="tabular text-sm text-muted">
               {daily.filter((i) => i.done).length} dari {daily.length}
             </span>
           </div>

@@ -27,7 +27,7 @@ export function Toaster() {
   return (
     <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-[104px] z-[60] flex justify-center px-4">
       {text && (
-        <p role="status" className="sheet-up rounded-full bg-plum px-5 py-3 text-sm font-bold text-paper shadow-float">
+        <p role="status" className="sheet-up rounded-full bg-ink px-5 py-3 text-sm font-bold text-paper shadow-float">
           {text}
         </p>
       )}

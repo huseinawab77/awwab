@@ -20,6 +20,9 @@ const eslintConfig = [
     ignores: [
       ".next-demo/**",
       ".superpowers/**",
+      ".agents/**",
+      ".claude/**",
+      ".taste-skill/**",
       "playwright-report/**",
       "test-results/**",
       "node_modules/**",

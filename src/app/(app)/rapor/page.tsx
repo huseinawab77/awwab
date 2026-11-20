@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Cat } from "@/components/Cat";
+import { HabitIcon } from "@/components/HabitIcon";
 import { ConsistencyCards } from "@/components/ConsistencyCards";
 import { Journey } from "@/components/Journey";
 import { LineChart } from "@/components/LineChart";
@@ -81,8 +82,8 @@ function Report({ today }: { today: string }) {
     <div className="flex flex-col gap-4">
       <header className="flex items-end justify-between gap-2 px-1">
         <div className="flex flex-col gap-0.5">
-          <span className="text-sm font-semibold text-plum-soft">{mode === "week" ? weekTitle(days) : formatMonth(days[0])}</span>
-          <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">Rapor</h1>
+          <span className="text-sm text-muted">{mode === "week" ? weekTitle(days) : formatMonth(days[0])}</span>
+          <h1 className="font-display text-[32px] font-medium leading-tight tracking-[-0.035em]">Rapor</h1>
         </div>
         <div className="flex gap-1.5">
           <NavButton label={mode === "week" ? "Minggu sebelumnya" : "Bulan sebelumnya"} dir="left" onClick={() => go(-1)} />
@@ -103,24 +104,24 @@ function Report({ today }: { today: string }) {
             role="radio"
             aria-checked={mode === m}
             onClick={() => switchMode(m)}
-            className={`h-11 rounded-full text-sm font-extrabold ${mode === m ? "bg-plum text-butter" : "text-plum-soft"}`}
+            className={`h-11 rounded-full text-sm font-semibold ${mode === m ? "bg-ink text-butter" : "text-muted"}`}
           >
             {m === "week" ? "Minggu" : "Bulan"}
           </button>
         ))}
       </div>
 
-      <section aria-label="Rata-rata skor" className="flex items-center gap-4 rounded-panel bg-plum p-5 text-butter">
+      <section aria-label="Rata-rata skor" className="flex items-center gap-4 rounded-panel bg-ink p-5 text-butter">
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <span className="text-sm font-bold text-on-plum">Rata-rata {periodLabel}</span>
-          <span data-testid="average" className="tabular font-display text-[56px] font-extrabold leading-none">
+          <span className="text-sm text-on-ink">Rata-rata {periodLabel}</span>
+          <span data-testid="average" className="tabular font-display text-[56px] font-medium leading-none">
             {view.avg ?? "–"}
           </span>
           {view.avg === null ? (
-            <span className="text-sm font-semibold text-on-plum">Belum ada skor di periode ini</span>
+            <span className="text-sm font-semibold text-on-ink">Belum ada skor di periode ini</span>
           ) : (
             trend && (
-              <span className="tabular mt-1 self-start whitespace-nowrap rounded-full bg-sun px-3 py-1 text-[13px] font-extrabold text-plum">
+              <span className="tabular mt-1 self-start whitespace-nowrap rounded-full bg-sun px-3 py-1 text-[13px] font-semibold text-ink">
                 {trend}
               </span>
             )
@@ -129,8 +130,8 @@ function Report({ today }: { today: string }) {
         <Cat score={view.avg} variant="head" size={92} className="flex-none" />
       </section>
 
-      <section className="flex flex-col gap-3 rounded-panel bg-paper p-4">
-        <h2 className="px-1 font-display text-xl font-bold">{mode === "week" ? "Perjalanan seminggu" : "Rata-rata per minggu"}</h2>
+      <section className="flex flex-col gap-3 rounded-panel bg-paper p-4 shadow-card">
+        <h2 className="px-1 font-display text-xl font-medium">{mode === "week" ? "Perjalanan seminggu" : "Rata-rata per minggu"}</h2>
         {mode === "week" ? (
           <Journey days={days.map((d) => ({ date: d, score: view.scoreOf(d) }))} today={today} />
         ) : (
@@ -150,22 +151,25 @@ function Report({ today }: { today: string }) {
 function Targets({ title, habits, logs, date }: { title: string; habits: Habit[]; logs: HabitLog[]; date: string }) {
   if (habits.length === 0) return null;
   return (
-    <section className="flex flex-col gap-2 rounded-panel bg-lilac p-3">
-      <h2 className="px-2 pt-1 font-display text-xl font-bold">{title}</h2>
+    <section className="flex flex-col gap-2">
+      <h2 className="px-1 pt-1.5 font-display text-xl font-medium tracking-[-0.02em]">{title}</h2>
       {habits.map((h) => {
         const p = targetProgress(h, date, logs);
         const pct = Math.min(100, (100 * p.done) / p.target);
         return (
-          <div key={h.id} className="flex flex-col gap-1.5 rounded-row bg-paper px-4 py-3">
-            <span className="font-extrabold">{h.name}</span>
+          <div key={h.id} className="flex min-h-[68px] items-center gap-3 rounded-row bg-paper p-2.5 shadow-card">
+            <HabitIcon icon={h.icon} color={h.color} />
+            <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+            <span className="font-semibold">{h.name}</span>
             <div className="flex items-center gap-2.5">
-              <span className="h-2 flex-1 overflow-hidden rounded-full bg-track">
-                <span className={`block h-2 rounded-full ${p.reached ? "bg-lime" : "bg-tangerine"}`} style={{ width: `${pct}%` }} />
+              <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-track">
+                <span className={`block h-1.5 rounded-full ${p.reached ? "bg-leaf" : "bg-tangerine"}`} style={{ width: `${pct}%` }} />
               </span>
-              <span className={`tabular whitespace-nowrap text-xs font-extrabold ${p.reached ? "text-mint-ink" : "text-plum-soft"}`}>
+              <span className={`whitespace-nowrap text-[13px] ${p.reached ? "font-semibold text-mint-ink" : "text-muted"}`}>
                 {fmtNum(p.done)} dari {fmtNum(p.target)}
                 {h.unit ? ` ${h.unit}` : ""}
               </span>
+            </div>
             </div>
           </div>
         );
@@ -232,12 +236,12 @@ function MonthNote({ month }: { month: string }) {
     status === "saving" ? "Menyimpan…" : status === "saved" ? "Tersimpan" : status === "error" ? "Belum tersimpan, coba lagi" : "";
 
   return (
-    <section className="flex flex-col gap-2 rounded-panel bg-sun p-4">
+    <section className="flex flex-col gap-2 rounded-panel bg-paper p-4 shadow-card">
       <div className="flex items-baseline justify-between gap-2 px-1">
-        <label htmlFor="month-note" className="font-display text-xl font-bold">
+        <label htmlFor="month-note" className="font-display text-xl font-medium">
           Catatan bulan ini
         </label>
-        <span role="status" className={`text-xs font-bold ${status === "error" ? "text-tangerine-ink" : "text-plum-soft"}`}>
+        <span role="status" className={`text-xs font-bold ${status === "error" ? "text-tangerine-ink" : "text-muted"}`}>
           {statusText}
         </span>
       </div>
@@ -250,7 +254,7 @@ function MonthNote({ month }: { month: string }) {
         placeholder="Apa yang jalan bagus bulan ini? Apa yang mau diubah?"
         rows={5}
         maxLength={5000}
-        className="w-full resize-y rounded-row bg-paper p-4 text-base font-medium text-plum placeholder:text-plum-soft/70 focus:outline-none focus-visible:ring-[3px] focus-visible:ring-plum"
+        className="w-full resize-y rounded-2xl border-[1.5px] border-line bg-butter/40 p-4 text-base font-medium text-ink placeholder:text-muted/70 focus:outline-none focus-visible:ring-[3px] focus-visible:ring-ink"
       />
     </section>
   );
@@ -273,7 +277,7 @@ function NavButton({
       aria-label={label}
       onClick={onClick}
       disabled={disabled}
-      className="flex h-11 w-11 items-center justify-center rounded-full bg-paper text-plum ring-2 ring-track disabled:opacity-40"
+      className="press flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-line bg-paper text-ink disabled:opacity-35"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />

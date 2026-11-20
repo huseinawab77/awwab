@@ -1,3 +1,4 @@
+import { FALLBACK_LOOK, type HabitColor, type HabitIcon } from "./habitIcons";
 import type { Habit, Kind, NewHabit, Period } from "./types";
 
 /** What the habit form holds while editing: numbers stay as typed text until saved. */
@@ -10,14 +11,16 @@ export interface Draft {
   step: string;
   periodTarget: string;
   routineDays: number[];
+  icon: HabitIcon;
+  color: HabitColor;
 }
 
 export type DraftErrors = Partial<Record<"name" | "unit" | "dayTarget" | "step" | "periodTarget", string>>;
 
-export type HabitPatch = Pick<NewHabit, "name" | "kind" | "period" | "unit" | "dayTarget" | "step" | "periodTarget" | "routineDays">;
+export type HabitPatch = Pick<NewHabit, "name" | "kind" | "period" | "unit" | "dayTarget" | "step" | "periodTarget" | "routineDays" | "icon" | "color">;
 
 export function emptyDraft(): Draft {
-  return { name: "", kind: "check", period: "daily", unit: "", dayTarget: "", step: "", periodTarget: "", routineDays: [] };
+  return { name: "", kind: "check", period: "daily", unit: "", dayTarget: "", step: "", periodTarget: "", routineDays: [], ...FALLBACK_LOOK };
 }
 
 const str = (n: number | null) => (n === null ? "" : String(n).replace(".", ","));
@@ -32,6 +35,8 @@ export function draftFrom(h: Habit): Draft {
     step: str(h.step),
     periodTarget: str(h.periodTarget),
     routineDays: h.routineDays,
+    icon: h.icon,
+    color: h.color,
   };
 }
 
@@ -74,5 +79,7 @@ export function toPatch(d: Draft): HabitPatch {
     step: qty ? parse(d.step) : null,
     periodTarget: daily ? null : parse(d.periodTarget),
     routineDays: daily ? [] : [...d.routineDays].sort((a, b) => a - b),
+    icon: d.icon,
+    color: d.color,
   };
 }

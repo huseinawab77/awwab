@@ -77,21 +77,21 @@ export function TimerSheet({
         {busyWith ? (
           <div className="flex flex-col gap-3 rounded-row bg-peach p-4">
             <p className="font-bold">Timer {busyWith} masih jalan.</p>
-            <p className="text-sm font-semibold text-plum-soft">Selesaikan atau batalkan dulu sebelum mulai timer baru.</p>
+            <p className="text-sm font-semibold text-muted">Selesaikan atau batalkan dulu sebelum mulai timer baru.</p>
             <PrimaryButton onClick={stop}>Batalkan timer {busyWith}</PrimaryButton>
           </div>
         ) : (
           <>
-            <div className="flex flex-col items-center gap-1 rounded-panel bg-plum py-8 text-paper">
-              <span role="timer" aria-live="off" className="tabular font-display text-6xl font-extrabold tracking-tight text-sun">
+            <div className="flex flex-col items-center gap-1 rounded-panel bg-ink py-8 text-paper">
+              <span role="timer" aria-live="off" className="tabular font-display text-6xl font-medium tracking-tight text-sun">
                 {clock(shown)}
               </span>
-              <span className="text-sm font-semibold text-on-plum">
+              <span className="text-sm font-semibold text-on-ink">
                 {running ? "Lagi fokus" : mine ? "Dijeda" : `Sudah ${current} menit, target ${habit.dayTarget}`}
               </span>
             </div>
             {note && (
-              <p role="status" className="rounded-row bg-paper p-3 text-center text-sm font-bold text-tangerine-ink ring-2 ring-track">
+              <p role="status" className="rounded-row bg-paper p-3 text-center text-sm font-bold text-tangerine-ink border-[1.5px] border-line">
                 {note}
               </p>
             )}
@@ -114,7 +114,7 @@ export function TimerSheet({
               </AccentButton>
             </div>
             {mine && (
-              <button type="button" onClick={stop} className="min-h-11 text-sm font-bold text-plum-soft">
+              <button type="button" onClick={stop} className="min-h-11 text-sm font-bold text-muted">
                 Batal, jangan dicatat
               </button>
             )}

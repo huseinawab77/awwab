@@ -40,22 +40,22 @@ export default function KutipanPage() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 px-5 pb-8 pt-10">
       <header className="flex flex-col gap-1">
-        <span className="text-sm font-semibold text-plum-soft">{formatLong(now.today)}</span>
-        <h1 className="font-display text-[32px] font-extrabold leading-tight tracking-tight">
+        <span className="text-sm font-semibold text-muted">{formatLong(now.today)}</span>
+        <h1 className="font-display text-[32px] font-medium leading-tight tracking-tight">
           {greeting(now.hour)}
           {name ? `, ${name}` : ""}
         </h1>
       </header>
 
-      <figure className="flex flex-col gap-5 rounded-panel bg-plum p-6 text-butter">
-        <span className="self-start rounded-full bg-lilac px-3 py-1 text-xs font-extrabold text-lilac-ink">{quote.theme}</span>
-        <blockquote className="font-display text-[26px] font-bold leading-snug">{quote.text}</blockquote>
-        <figcaption className="text-sm font-bold text-on-plum">{quote.author}</figcaption>
+      <figure className="flex flex-col gap-5 rounded-panel bg-ink p-6 text-butter">
+        <span className="self-start rounded-full bg-sky px-3 py-1 text-xs font-semibold text-sky-ink">{quote.theme}</span>
+        <blockquote className="font-display text-[26px] font-medium leading-snug">{quote.text}</blockquote>
+        <figcaption className="text-sm font-bold text-on-ink">{quote.author}</figcaption>
       </figure>
 
       <section className="flex flex-col gap-1.5 rounded-panel bg-sun p-5">
-        <h2 className="text-sm font-extrabold text-plum">Buat hari ini</h2>
-        <p className="font-semibold leading-relaxed text-plum">{quote.reflection}</p>
+        <h2 className="text-sm font-semibold text-ink">Buat hari ini</h2>
+        <p className="font-semibold leading-relaxed text-ink">{quote.reflection}</p>
       </section>
 
       <div className="mt-auto flex flex-col items-center gap-4 pt-2">

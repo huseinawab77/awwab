@@ -1,17 +1,18 @@
 // Starter habits offered on the Mulai screen, taken from the old AWWAB list.
+import { suggestLook } from "./habitIcons";
 import type { Habit } from "./types";
 
 export type DefaultHabit = Omit<Habit, "id" | "startOn" | "archivedOn" | "sort"> & { selected: boolean };
 
 const daily = (name: string, selected = true): DefaultHabit => ({
   name, kind: "check", period: "daily", unit: null, dayTarget: null, step: null,
-  periodTarget: null, routineDays: [], selected,
+  periodTarget: null, routineDays: [], ...suggestLook(name), selected,
 });
 const dailyQty = (name: string, unit: string, dayTarget: number, step: number): DefaultHabit => ({
-  name, kind: "qty", period: "daily", unit, dayTarget, step, periodTarget: null, routineDays: [], selected: true,
+  name, kind: "qty", period: "daily", unit, dayTarget, step, periodTarget: null, routineDays: [], ...suggestLook(name), selected: true,
 });
 const times = (name: string, period: "weekly" | "monthly", periodTarget: number, routineDays: number[] = [], selected = true): DefaultHabit => ({
-  name, kind: "check", period, unit: "kali", dayTarget: null, step: null, periodTarget, routineDays, selected,
+  name, kind: "check", period, unit: "kali", dayTarget: null, step: null, periodTarget, routineDays, ...suggestLook(name), selected,
 });
 
 export const DEFAULT_HABITS: DefaultHabit[] = [
@@ -28,7 +29,7 @@ export const DEFAULT_HABITS: DefaultHabit[] = [
   times("Study session", "weekly", 5),
   {
     name: "Deep work", kind: "qty", period: "weekly", unit: "menit", dayTarget: 90, step: 15,
-    periodTarget: 600, routineDays: [], selected: true,
+    periodTarget: 600, routineDays: [], ...suggestLook("Deep work"), selected: true,
   },
   times("Networking", "weekly", 5),
   times("Bantu orang", "weekly", 3),
