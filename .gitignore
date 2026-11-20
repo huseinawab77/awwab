@@ -35,3 +35,9 @@ yarn-error.log*
 .next-demo/
 test-results/
 playwright-report/
+
+# design skills installed locally (not part of the app)
+.agents/
+.claude/
+.taste-skill/
+skills-lock.json

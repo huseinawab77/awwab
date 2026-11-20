@@ -63,6 +63,31 @@ body {
 }
 .sheet-up { animation: sheet-up 180ms ease-out; }
 
+/* The cat mascot (src/components/Mascot.tsx): SVG parts rotate/scale around points in the 200x220 viewBox. */
+.mascot { overflow: visible; }
+.mascot * { transform-box: view-box; }
+.mascot-body { transform-origin: 100px 207px; animation: mascot-breathe 3.2s ease-in-out infinite; }
+.mascot-tail { transform-origin: 138px 188px; animation: mascot-wag 2.4s ease-in-out infinite alternate; }
+.mascot-blink { transform-origin: 100px 96px; animation: mascot-blink 4.6s infinite; }
+.mascot-wave { transform-origin: 128px 150px; animation: mascot-wave 0.9s ease-in-out infinite alternate; }
+.mascot-cheer { transform-origin: 100px 150px; animation: mascot-cheer 0.7s ease-in-out infinite alternate; }
+.mascot-hop { animation: mascot-hop 420ms cubic-bezier(0.2, 0.8, 0.3, 1.2); }
+.mascot-jump .mascot-body { animation: mascot-jump 1.1s cubic-bezier(0.3, 0, 0.3, 1) infinite; }
+.mascot-jump .mascot-shadow { transform-origin: 100px 212px; animation: mascot-shadow 1.1s cubic-bezier(0.3, 0, 0.3, 1) infinite; }
+.mascot-zzz { animation: mascot-float 2.6s ease-in-out infinite; }
+.mascot-twinkle { animation: mascot-twinkle 1.6s ease-in-out infinite; }
+@keyframes mascot-breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.012, 1.025); } }
+@keyframes mascot-wag { from { transform: rotate(-7deg); } to { transform: rotate(9deg); } }
+@keyframes mascot-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes mascot-wave { from { transform: rotate(-4deg); } to { transform: rotate(-26deg); } }
+@keyframes mascot-cheer { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+@keyframes mascot-hop { 0% { transform: translateY(0) scale(1); } 40% { transform: translateY(-8%) scale(1.03); } 100% { transform: translateY(0) scale(1); } }
+@keyframes mascot-jump { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-14px); } }
+@keyframes mascot-shadow { 0%, 100% { transform: scaleX(1); opacity: 1; } 45% { transform: scaleX(0.75); opacity: 0.6; } }
+@keyframes mascot-float { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-5px); opacity: 0.6; } }
+@keyframes mascot-twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.6); opacity: 0.5; } }
+
 @media (prefers-reduced-motion: reduce) {
   .stamp, .sheet-up { animation: none; }
+  .mascot, .mascot * { animation: none !important; }
 }
