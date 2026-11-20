@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fetchAll, PAGE } from "./supabase";
+import { fetchAll, PAGE, pickDisplayName } from "./supabase";
 
 /** A fake query whose .range(a, b) serves rows a..b of `total`, like PostgREST with max-rows. */
 function fakeQuery(total: number) {
@@ -27,5 +27,17 @@ describe("fetchAll", () => {
     await expect(
       fetchAll(() => ({ range: () => Promise.resolve({ data: null, error: { message: "boom" } }) })),
     ).rejects.toThrow("boom");
+  });
+});
+
+describe("pickDisplayName", () => {
+  it("prefers the saved name, then the name given at sign-up", () => {
+    expect(pickDisplayName("Awab", "Husein")).toBe("Awab");
+    expect(pickDisplayName(null, "Awab")).toBe("Awab");
+    expect(pickDisplayName("  ", "Awab")).toBe("Awab");
+  });
+  it("is null when neither has a name", () => {
+    expect(pickDisplayName(null, undefined)).toBeNull();
+    expect(pickDisplayName("", "  ")).toBeNull();
   });
 });

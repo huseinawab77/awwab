@@ -74,6 +74,14 @@ function rows<T>(res: { data: T[] | null; error: { message: string } | null }): 
   return check(res) ?? [];
 }
 
+/** The saved name wins; otherwise the name given at sign-up (kept in the auth user's metadata). */
+export function pickDisplayName(saved: string | null | undefined, signUp: unknown): string | null {
+  const a = typeof saved === "string" ? saved.trim() : "";
+  if (a) return a;
+  const b = typeof signUp === "string" ? signUp.trim() : "";
+  return b || null;
+}
+
 /** Rows per request; PostgREST caps responses at 1000 rows by default. */
 export const PAGE = 1000;
 
@@ -141,7 +149,14 @@ export function createSupabaseStore(sb: SupabaseClient): DataStore {
     async getSettings(): Promise<Settings> {
       const data = check(await sb.from("settings").select("show_quote,last_quote_on,display_name").maybeSingle());
       const r = data as { show_quote: boolean; last_quote_on: string | null; display_name: string | null } | null;
-      return { showQuote: r?.show_quote ?? true, lastQuoteOn: r?.last_quote_on ?? null, displayName: r?.display_name ?? null };
+      let displayName = pickDisplayName(r?.display_name, null);
+      if (!displayName) {
+        // Sign-up with email confirmation never reached the settings upsert: copy the name over once.
+        const { data: auth } = await sb.auth.getUser();
+        displayName = pickDisplayName(null, auth.user?.user_metadata?.display_name);
+        if (displayName) await sb.from("settings").upsert({ display_name: displayName }, { onConflict: "user_id" });
+      }
+      return { showQuote: r?.show_quote ?? true, lastQuoteOn: r?.last_quote_on ?? null, displayName };
     },
     async updateSettings(patch) {
       const row: Record<string, unknown> = {};
